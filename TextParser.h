@@ -13,5 +13,5 @@ class TextParser{
 	TextParser();
 	//constructor for file
 	TextParser(string fileName);
-
+	
 };

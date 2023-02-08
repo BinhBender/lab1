@@ -3,6 +3,8 @@
 #include <iomanip>
 #include <chrono>
 #include "Timer.h"
+void SortAllAlgorithms();
+void SortTwoAlgorithms();
 int main(){
 	
 	//parse through a text file
@@ -53,4 +55,11 @@ int main(){
 	//Quick Sort
 	
 }
+
+void SortAllAlgorithms(){
+	};
+void SortTwoAlgorithms(){
+	int random = std::rand() % 2;
+	switch
+	};
 
