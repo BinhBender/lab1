@@ -7,25 +7,20 @@
 //eliminate all "a", "an", "be", "the"
 class TextParser{
 	//this will most likely take the longest
+	
+private:
 	int wordCount;
 	std::istream ifile;
-	std::string tokens;
+	std::string* tokens;
+	
+public:
 	TextParser();
 	//constructor for file
 	TextParser(string fileName);
+	//delete the new memory when it goes out of scope
+	~TextParser();
 	
-	bool Parse(){
-		//check if the file is open or not before use
-		if(!ifile.is_open()) return false;
-		
-		//loops through the file for each word
-		while(ifile){
-			std::string dummy;
-			ifile >> dummy;
-			
-			if(dummy.size() == 1) 
-		}
 	
-	}
+	bool Parse(int limit);
 	
 };
