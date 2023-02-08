@@ -2,10 +2,8 @@
 #include <fstream>
 #include <iomanip>
 #include <chrono>
-
+#include "Timer.h"
 int main(){
-
-	std::cout << "Hello World"<< std::endl;
 	
 	//parse through a text file
 	//tokenize the sentences so that each word is its own string
@@ -22,8 +20,33 @@ int main(){
 	//Quickly
 	
 	//make function for timing
+	//Timer t;
+	//t.StartTime();
+	std::cout << "Hello User! Would you like to try and see the speed and efficiencies of some famous sorting algorithms?"<< std::endl;
+	std::cout << "Y/N";
+	char choice;
+	std::cin >> choice;
 	
-	
+	if(choice == 'Y'){
+	//ask for choice between all alogrithms or just two random ones
+		std::cout << "1- All Algorithms\n2-Two Random Algorithms";
+		char algoChoice;
+		std::cin>> algoChoice;
+		switch (algoChoice){
+			case 1:
+			
+			break;
+			case 2:
+			
+			break;
+			default:
+			//repeat
+			
+			std::cout << "Please Choose a Valid Option\n";
+			break;
+		}
+	}
+	//std::cout << t.EndTime().count();
 	//Insertion sort
 	//Selection Sort
 	//Merge Sort

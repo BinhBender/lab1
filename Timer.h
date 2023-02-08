@@ -6,11 +6,11 @@ class Timer{
 private:
 	std::chrono::time_point<std::chrono::system_clock> start, end;
 public:
-	//constructor doesn't need to do anything special
+	//constructor doesn't need to do anything 
 	Timer();
 	
 	//since the program is in a linear path, it should go start(), then end() with the end going after the sort
 	void StartTime();
-	std::chrono::duration<float> duration(); 
+	std::chrono::duration<float> EndTime(); 
 	
-}
+};
