@@ -7,6 +7,16 @@ void swap(std::string& a, std::string& b){
 	a = b;
 	b = c;
 }
+int min_position(std::string[] array, int from, to){
+	int min = 0;
+	for(int i = from; i < to; i++){
+		if(array[i] < array[min]){
+			min = i;
+		}
+	
+	}
+	return min;
+}
 //helper function to find the lower alphabetical word
 //returns true if less
 bool AlphabetValue(std::string& a, std::string& b){
@@ -70,7 +80,8 @@ static void Algorithms::SelectionSort(std::string[] array, int size){
 	
 }
 //o(nlogn)
-static void Algorithms::MergeSort(std::string[] array, int size){
+static void Algorithms::MergeSort(std::string[] array, int from, int to){
+	if(from == to) return;
 	
 }
 //o(nlogn)
