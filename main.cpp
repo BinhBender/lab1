@@ -2,9 +2,12 @@
 #include <fstream>
 #include <iomanip>
 #include <chrono>
+#include <random>
 #include "Timer.h"
+#include "Algorithms.h"
 void SortAllAlgorithms();
 void SortTwoAlgorithms();
+//main should only be the "gui" and should not have any of the algorithms explicitly
 int main(){
 	
 	//parse through a text file
@@ -22,12 +25,15 @@ int main(){
 	//Quickly
 	
 	//make function for timing
-	//Timer t;
-	//t.StartTime();
+
 	std::cout << "Hello User! Would you like to try and see the speed and efficiencies of some famous sorting algorithms?"<< std::endl;
 	std::cout << "Y/N";
 	char choice;
 	std::cin >> choice;
+	
+	TextParser TP;
+	
+	
 	
 	if(choice == 'Y'){
 	//ask for choice between all alogrithms or just two random ones
@@ -48,7 +54,6 @@ int main(){
 			break;
 		}
 	}
-	//std::cout << t.EndTime().count();
 	//Insertion sort
 	//Selection Sort
 	//Merge Sort
@@ -57,9 +62,41 @@ int main(){
 }
 
 void SortAllAlgorithms(){
+	//each algorithm needs at least 4 sorts
+	//one for an unsorted array
+	//one for a sorted array
+	//one longer unsorted array
+	//one longer sorted array
 	};
 void SortTwoAlgorithms(){
+	//first random nlogn
 	int random = std::rand() % 2;
-	switch
+	Timer t;
+	switch(random){
+		case 0:
+		//merge sort
+		std::cout << "Merge Sort" << std::endl;
+		t.StartTime();
+		
+		t.EndTime();
+		break;
+		case 1:
+		//Quick Sort
+		break;
 	};
-
+	//second random n^2 
+	random = std::rand() % 3;
+	switch(random){
+		case 0:
+		//Selection Sort
+		break;
+		case 1:
+		//Insertion Sort
+		break;
+		case 2:
+		//Bubble Sort
+		//Algorithms::BubbleSort();
+		
+		break;
+	};
+}

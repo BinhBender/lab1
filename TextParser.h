@@ -5,6 +5,8 @@
 //the sentences, making an array that would have individual words.
 
 //eliminate all "a", "an", "be", "the"
+//should be able to "clean" the words
+//	removes commas periods parentheses
 class TextParser{
 	//this will most likely take the longest
 	
