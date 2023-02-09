@@ -5,8 +5,9 @@
 #include <random>
 #include "Timer.h"
 #include "Algorithms.h"
-void SortAllAlgorithms();
-void SortTwoAlgorithms();
+#include "TextParser.h"
+void SortAllAlgorithms(std::string*);
+void SortTwoAlgorithms(std::string*);
 //main should only be the "gui" and should not have any of the algorithms explicitly
 int main(){
 	
@@ -32,26 +33,31 @@ int main(){
 	std::cin >> choice;
 	
 	TextParser TP;
+	TP.Parse("beemoviescript.txt");
 	
 	
-	
-	if(choice == 'Y'){
+	while(choice == 'Y'){
 	//ask for choice between all alogrithms or just two random ones
 		std::cout << "1- All Algorithms\n2-Two Random Algorithms";
-		char algoChoice;
-		std::cin>> algoChoice;
-		switch (algoChoice){
-			case 1:
+		//repeat turns off
+		bool repeat = true;
+		while(repeat){
 			
-			break;
-			case 2:
-			
-			break;
-			default:
-			//repeat
-			
-			std::cout << "Please Choose a Valid Option\n";
-			break;
+			char algoChoice;
+			std::cin >> algoChoice;
+			switch (algoChoice){
+				case 1:
+				repeat = false;
+				break;
+				case 2:
+				repeat = false;
+				break;
+				default:
+				//repeat
+				
+				std::cout << "Please Choose a Valid Option\n";
+				break;
+			}
 		}
 	}
 	//Insertion sort
@@ -61,14 +67,14 @@ int main(){
 	
 }
 
-void SortAllAlgorithms(){
+void SortAllAlgorithms(std::string* s){
 	//each algorithm needs at least 4 sorts
 	//one for an unsorted array
 	//one for a sorted array
 	//one longer unsorted array
 	//one longer sorted array
 	};
-void SortTwoAlgorithms(){
+void SortTwoAlgorithms(std::string* s){
 	//first random nlogn
 	int random = std::rand() % 2;
 	Timer t;

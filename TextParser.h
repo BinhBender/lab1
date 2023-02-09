@@ -18,7 +18,7 @@ private:
 public:
 	TextParser();
 	//constructor for file
-	TextParser(string fileName);
+	TextParser(std::string);
 	//delete the new memory when it goes out of scope
 	~TextParser();
 	

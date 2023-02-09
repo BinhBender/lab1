@@ -34,7 +34,8 @@ bool TextParser::Parse(int limit){
 			//if the char is not between ascii values of the letters
 			//then it should be removed
 			char c = word[i];
-			if((c > 32 && c < 65)|| (c > 90 && c < 97) || c > 122){
+			if(c == "`")
+			else if((c > 32 && c < 65)|| (c > 90 && c < 97) || c > 122){
 				word.erase(i);
 			}
 		}
@@ -46,12 +47,16 @@ bool TextParser::Parse(int limit){
 			
 			//increases the size per loop
 			wordCount++;
-			//delete the previously allocated array
-			delete[] tokens;
+			//make a placeholder pointer for the string array before deleting.
+			std::string* dummy = tokens;
 			
-			//uses the size to make a dynamically allocated array which then is immediately stored
+			//uses the size to make a dynamically allocated array
 			tokens = new std::string[wordCount];
-			tokens[wordcount - 1] = word;
+			//copy all of the words from the previous array into the new one.
+			for(int i = 0; i < wordCount - 1; i++){
+				tokens[i] = dummy[i];
+			}
+			tokens[wordCount - 1] = word;
 		}
 				
 	}
