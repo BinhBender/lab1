@@ -1,49 +1,55 @@
 #include "TextParser.h"
 #include <unordered_map>
-
-TextParser(){
+#include <iostream>
+TextParser::TextParser(){
 	wordCount=0;
 	tokens = new std::string[1];
 }
 	//constructor for file
-TextParser(std::string fileName){
-		ifile.open(fileName);
+TextParser::TextParser(std::string fileName){
+	std::cout << "Finding File\n";
+	ifile.open(fileName);
+	std::cout << "Found File\n";
 }
 	//delete the new memory when it goes out of scope
-~TextParser(){
+TextParser::~TextParser(){
 	delete[] tokens;
+}
+void removePunctuation(std::string& input){
+	//clean the word first (no puncutation marks)
+	for(long unsigned int i = 0; i < input.size(); i++){
+		//if the char is not between ascii values of the letters
+		//then it should be removed
+		char c = input[i];
+		if(c == 39){}
+		if((c > 32 && c < 65)|| (c > 90 && c < 97) || c > 122){
+			input.erase(i);
+		}
+	}
 }
 bool TextParser::Parse(int limit){
 	//check if the file is open or not before use
+	std::cout << "Starting Parse\n";
 	if(!ifile.is_open()) return false;
 	
 	//creates a map for prohibited words.
 	std::unordered_map<std::string, char> prohibited_words;
-	prohibited_words['an'] = 1;
-	prohibited_words['a'] = 1;
-	prohibited_words['the'] = 1;
-	prohibited_words['be'] = 1;
+	prohibited_words["an"] = 1;
+	prohibited_words["a"] = 1;
+	prohibited_words["the"] = 1;
+	prohibited_words["be"] = 1;
 	
-	
-	//loops through the file for each word
-	while(ifile){
+	//loops through the file for each word until it 
+	while(ifile && wordCount < limit){
 		std::string word;
 		ifile >> word;
-		//clean the word first (no puncutation marks)
-		for(int i = 0; i < word.size(); i++){
-			//if the char is not between ascii values of the letters
-			//then it should be removed
-			char c = word[i];
-			if(c == "`")
-			else if((c > 32 && c < 65)|| (c > 90 && c < 97) || c > 122){
-				word.erase(i);
-			}
-		}
-		
-		
+		removePunctuation(word);
 		//check if the word is one of the prohibited
 		if(prohibited_words[word] == 0){
-		
+			//since a map inserts an element anytime it is accessed with
+			//a different key, we need to remove it in order to save some 
+			//memory
+			prohibited_words.erase(word);
 			
 			//increases the size per loop
 			wordCount++;
@@ -58,7 +64,14 @@ bool TextParser::Parse(int limit){
 			}
 			tokens[wordCount - 1] = word;
 		}
-				
+		
 	}
 	
+	return true;
+}
+int TextParser::size(){
+	return wordCount;
+}
+std::string* TextParser::GetToken(){
+	return tokens;
 }

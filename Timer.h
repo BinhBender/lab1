@@ -1,10 +1,12 @@
 #pragma once
 #include <chrono>
 
+//Code from youtube.com/TheCherno
 class Timer{
 //creates two variables to determine the change in time
 private:
-	std::chrono::time_point<std::chrono::steady_clock> start, end;
+	std::chrono::high_resolution_clock::time_point start, end;
+	std::chrono::duration<double> duration_;
 public:
 	//constructor doesn't need to do anything 
 	Timer();

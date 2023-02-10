@@ -12,17 +12,16 @@ class TextParser{
 	
 private:
 	int wordCount;
-	std::istream ifile;
+	std::ifstream ifile;
 	std::string* tokens;
-	
 public:
 	TextParser();
 	//constructor for file
 	TextParser(std::string);
 	//delete the new memory when it goes out of scope
 	~TextParser();
-	
-	
+	std::string* GetToken();
+	int size();
 	bool Parse(int limit);
 	
 };

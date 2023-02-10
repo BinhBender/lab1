@@ -12,6 +12,7 @@ void Timer::StartTime(){
 
 //returns the duration of the since the last StartTime() function of the same Timer object
 float Timer::EndTime(){
-	float seconds = std::chrono::duration<float>(std::chrono::high_resolution_clock::now() - start).count();
-	return seconds;
+	end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> timespan = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
+	return duration_.count();
 }

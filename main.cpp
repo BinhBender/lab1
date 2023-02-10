@@ -6,6 +6,8 @@
 #include "Timer.h"
 #include "Algorithms.h"
 #include "TextParser.h"
+
+
 void SortAllAlgorithms(std::string*);
 void SortTwoAlgorithms(std::string*);
 //main should only be the "gui" and should not have any of the algorithms explicitly
@@ -26,14 +28,30 @@ int main(){
 	//Quickly
 	
 	//make function for timing
-
+	std::cout << "Starting"<< std::endl;
+	TextParser TP("beemoviescript.txt");
+	std::cout << "Beginning Parse\n";
+	Timer t;
+	t.StartTime();
+	std::cout << TP.Parse(5000);
+	std:: cout << t.EndTime();
+	std::cout << "\n\nParse Ended\n";
+	std::string* tokenized = TP.GetToken();
+	
+	for(int i = 0; i < TP.size(); i++){
+		std::cout << tokenized[i] << std::endl;
+	}
+	
+	std::cout << "Ending"<< std::endl;
+	
+/*
 	std::cout << "Hello User! Would you like to try and see the speed and efficiencies of some famous sorting algorithms?"<< std::endl;
 	std::cout << "Y/N";
 	char choice;
 	std::cin >> choice;
 	
-	TextParser TP;
-	TP.Parse("beemoviescript.txt");
+	TextParser TP("beemoviescript.txt");
+	TP.Parse(5000);
 	
 	
 	while(choice == 'Y'){
@@ -64,7 +82,7 @@ int main(){
 	//Selection Sort
 	//Merge Sort
 	//Quick Sort
-	
+	*/
 }
 
 void SortAllAlgorithms(std::string* s){
