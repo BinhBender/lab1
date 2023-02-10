@@ -22,7 +22,7 @@ void removePunctuation(std::string& input){
 		//then it should be removed
 		char c = input[i];
 		if(c == 39){}
-		if((c > 32 && c < 65)|| (c > 90 && c < 97) || c > 122){
+		else if((c > 32 && c < 65)|| (c > 90 && c < 97) || c > 122){
 			input.erase(i);
 		}
 	}
@@ -62,6 +62,7 @@ bool TextParser::Parse(int limit){
 			for(int i = 0; i < wordCount - 1; i++){
 				tokens[i] = dummy[i];
 			}
+			delete[] dummy;
 			tokens[wordCount - 1] = word;
 		}
 		

@@ -79,12 +79,58 @@ static void Algorithms::InsertionSort(std::string[] array, int size){
 static void Algorithms::SelectionSort(std::string[] array, int size){
 	
 }
-//o(nlogn)
-static void Algorithms::MergeSort(std::string[] array, int from, int to){
-	if(from == to) return;
+//Adapted from zybook
+void Merge(std::string[] strs, int from, int mid, int to){
+	//create a new array in order to make it easier.
+	int size = to - from + 1;
+	int* tempStorage = new int[size];
 	
+	//loop through the new array with two "pointers" 
+	//the pointers will start at from, and mid+1
+	//pointers will compare with the values of each other
+	//and the pointer that has the lower value will insert
+	//that value into the new array and shift up once
+	int ipointer = 0;
+	int jpointer = mid + 1;
+	int j = 0;
+	while(ipointer <= mid && jpointer <=to){
+		if(AlphabetValue(strs[ipointer], strs[jpointer])){
+			strs[j] = strs[ipointer];
+			ipointer++;
+		}
+		else{
+			strs[j] = strs[jpointer];
+			i2++;
+		}
+		j++;
+	}
+	while(ipointer <= mid){
+		tempStorage[j] = strs[ipointer];
+		ipointer++;
+		j++;
+	}
+	while(jpointer <= to){
+		tempStorage[j] = strs[jpointer];
+		jpointer++;
+		j++;
+	}
+	
+	for(j = 0; j < n; j++){
+		strs[from + j] = tempStorage[j];
+	}
+	
+	delete[] tempStorage;
+}
+//o(nlogn)
+static void Algorithms::MergeSort(std::string[] strings, int from, int to){
+	if(from == to) return;
+	int mid = (from + to) / 2;
+	MergeSort(strings,from, mid);
+	MergeSort(strings, mid+1, to);
+	Merge(strings, from, mid, to);
 }
 //o(nlogn)
 static void Algorithms::QuickSort(std::string[] array, int size){
+	std::string pivot = array[0];
 	
 }

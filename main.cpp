@@ -27,24 +27,30 @@ int main(){
 	//Quick--
 	//Quickly
 	
-	//make function for timing
+/*//this is to test out parse & timer
 	std::cout << "Starting"<< std::endl;
 	TextParser TP("beemoviescript.txt");
 	std::cout << "Beginning Parse\n";
-	Timer t;
-	t.StartTime();
-	std::cout << TP.Parse(5000);
-	std:: cout << t.EndTime();
-	std::cout << "\n\nParse Ended\n";
+	//Timer t;
+	//t.StartTime();
+	std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
+	TP.Parse(5000);
+	//std::cout << t.EndTime();
+	
+	std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> timespan = std::chrono::duration_cast<std::chrono::duration<double>>(t2-t1);
+	std::cout << (timespan.count() * 1000) << " ms.";
+	std::cout << "\nParse Ended\n";
 	std::string* tokenized = TP.GetToken();
 	
 	for(int i = 0; i < TP.size(); i++){
-		std::cout << tokenized[i] << std::endl;
+		std::cout << tokenized[i] << " ";
+		if(i % 10 == 0) std::cout << std::endl;
 	}
 	
 	std::cout << "Ending"<< std::endl;
-	
-/*
+	*/
+
 	std::cout << "Hello User! Would you like to try and see the speed and efficiencies of some famous sorting algorithms?"<< std::endl;
 	std::cout << "Y/N";
 	char choice;
@@ -56,7 +62,7 @@ int main(){
 	
 	while(choice == 'Y'){
 	//ask for choice between all alogrithms or just two random ones
-		std::cout << "1- All Algorithms\n2-Two Random Algorithms";
+		std::cout << "1- All Algorithms\n2-Two Random Algorithms\n";
 		//repeat turns off
 		bool repeat = true;
 		while(repeat){
@@ -77,12 +83,16 @@ int main(){
 				break;
 			}
 		}
+		std::cout << "Would you like to run the program again?\n";
+		std::cout << "Y/N";
+		char choice;
+		std::cin >> choice;
 	}
 	//Insertion sort
 	//Selection Sort
 	//Merge Sort
 	//Quick Sort
-	*/
+	
 }
 
 void SortAllAlgorithms(std::string* s){
@@ -92,7 +102,7 @@ void SortAllAlgorithms(std::string* s){
 	//one longer unsorted array
 	//one longer sorted array
 	};
-void SortTwoAlgorithms(std::string* s){
+void SortTwoAlgorithms(std::string* tokens){
 	//first random nlogn
 	int random = std::rand() % 2;
 	Timer t;
