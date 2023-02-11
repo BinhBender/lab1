@@ -6,10 +6,11 @@
 #include "Timer.h"
 #include "Algorithms.h"
 #include "TextParser.h"
-
+#define PARSE_SIZE 5000
 
 void SortAllAlgorithms(std::string*);
 void SortTwoAlgorithms(std::string*);
+void PrintFirstLast50(std::string[], int);
 //main should only be the "gui" and should not have any of the algorithms explicitly
 int main(){
 	
@@ -56,9 +57,10 @@ int main(){
 	char choice;
 	std::cin >> choice;
 	
-	TextParser TP("beemoviescript.txt");
-	TP.Parse(5000);
-	
+	TextParser text1("beemoviescript.txt");
+	text1.Parse(PARSE_SIZE);
+	//TextParser text2("some jargan");
+	//text2.Parse(PARSE_SIZE * 5);
 	
 	while(choice == 'Y'){
 	//ask for choice between all alogrithms or just two random ones
@@ -95,13 +97,37 @@ int main(){
 	
 }
 
-void SortAllAlgorithms(std::string* s){
+void PrintFirstLast50(std::string[] list, int size){
+	//make two loops to print first 50 of the array
+	//and last 50
+	
+	int endline = 0; //counter to add an std::endl every few words
+	std::cout << "====First 50 Words====\n";
+	for(int i = 0; i < 50; i++){
+		std::cout << list[i] << ", ";			   //new line every few words
+		
+		if(endline % 10 == 0) std::cout<<std::endl;
+	}
+	
+	std::cout << "\n====Last 50 Words====\n";
+	for(int i = size - 51; i < size; i++){
+		std::cout << list[i] << ", ";
+		
+		if(endline % 10 == 0) std::cout<<std::endl; //new line every few words
+	}
+}
+void SortAllAlgorithms(TextParser* shortText, TextParser* longText){
 	//each algorithm needs at least 4 sorts
 	//one for an unsorted array
 	//one for a sorted array
 	//one longer unsorted array
 	//one longer sorted array
-	};
+	
+	Algorithms::BubbleSort(shortText=>GetToken(), shortText=>GetSize());
+	
+	
+};
+	
 void SortTwoAlgorithms(std::string* tokens){
 	//first random nlogn
 	int random = std::rand() % 2;

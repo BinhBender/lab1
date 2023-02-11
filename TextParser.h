@@ -21,7 +21,7 @@ public:
 	//delete the new memory when it goes out of scope
 	~TextParser();
 	std::string* GetToken();
-	int size();
+	int GetSize();
 	bool Parse(int limit);
 	
 };

@@ -1,7 +1,6 @@
 #pragma once
 #include <chrono>
 
-//Code from youtube.com/TheCherno
 class Timer{
 //creates two variables to determine the change in time
 private:

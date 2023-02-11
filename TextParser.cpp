@@ -1,6 +1,7 @@
 #include "TextParser.h"
 #include <unordered_map>
 #include <iostream>
+
 TextParser::TextParser(){
 	wordCount=0;
 	tokens = new std::string[1];
@@ -62,7 +63,10 @@ bool TextParser::Parse(int limit){
 			for(int i = 0; i < wordCount - 1; i++){
 				tokens[i] = dummy[i];
 			}
+			//delete old array
 			delete[] dummy;
+			
+			//insert new word into array.
 			tokens[wordCount - 1] = word;
 		}
 		
@@ -70,7 +74,7 @@ bool TextParser::Parse(int limit){
 	
 	return true;
 }
-int TextParser::size(){
+int TextParser::GetSize(){
 	return wordCount;
 }
 std::string* TextParser::GetToken(){
