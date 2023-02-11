@@ -7,31 +7,19 @@ void swap(std::string& a, std::string& b){
 	a = b;
 	b = c;
 }
-int min_position(std::string[] array, int from, to){
-	
-	int min = 0;
-	//goes through array to find the minimum
-	for(int i = from; i < to; i++){
-		//if array at index i < min, set min to index i
-		if(AlphabetValue(array[i],array[min])){
-			min = i;
-		}
-	
-	}
-	return min;
-}
+
 //helper function to find the lower alphabetical word
 //returns true if less
 bool AlphabetValue(std::string& a, std::string& b){
 	
 	//if i preemtively set it to a.size() i won't 
 	//have to do an else statement saves a tiny bit of time
-	int sizeLimit = a.size();
+	long unsigned int sizeLimit = a.size();
 	if(sizeLimit > b.size()){
 		sizeLimit = b.size();
 	}
 	
-	for(int i = 0; i< sizeLimit; i++){
+	for(long unsigned int i = 0; i< sizeLimit; i++){
 		//capitalize all of them so 97 - 122 (a-z) 65-90(A-Z)
 		char letterA, letterB;
 		//checks if the letter is a lower case or not and then subtracts 32
@@ -54,8 +42,24 @@ bool AlphabetValue(std::string& a, std::string& b){
 	return true;
 	
 }
+
+int min_position(std::string array[],int from,int to){
+	
+	int min = 0;
+	//goes through array to find the minimum
+	for(int i = from; i < to; i++){
+		//if array at index i < min, set min to index i
+		if(AlphabetValue(array[i], array[min])){
+			min = i;
+		}
+	
+	}
+	return min;
+}
+
 //o(n^2)
-static void Algorithms::BubbleSort(std::string[] array, int size){
+void SortingAlgorithms::BubbleSort(std::string array[], int size){
+	
 	//nested loop since bubble sort is basically 
 	//"for every i, check j"
 	for(int i = 0; i < size; i++){
@@ -65,30 +69,30 @@ static void Algorithms::BubbleSort(std::string[] array, int size){
 		bool isSorted = true;
 		for(int j = 1; j < size - i; j++){
 			//if the previous string is 
-			if(AlphabetValue(array[j], array[j-1]) {
+			if(AlphabetValue(array[j], array[j-1])) {
 				swap(array[j], array[j-1]);
 				isSorted = false;
 			}
 			
-			if(!isSorted) break;
+			if(!isSorted) {break;}
 		}
 	}
 }
 
 //o(n^2)
-static void Algorithms::InsertionSort(std::string[] array, int size){
+void SortingAlgorithms::InsertionSort(std::string array[] , int size){
 	for(int i = 1; i < size; i++){
-		int next = array[i];
+		std::string next = array[i];
 		int j = i;
 		while (j > 0 && array[j - 1] > next){
 			array[j] = array[j - 1];
 			j--;
 		}
-		
 		array[j] = next;
+	}	
 }
 //o(n^2)
-static void Algorithms::SelectionSort(std::string[] array, int size){
+void SortingAlgorithms::SelectionSort(std::string array[], int size){
 	//the opposite of bubble
 	//left to right
 	for(int i = 0; i < size - 1; i++){
@@ -100,10 +104,10 @@ static void Algorithms::SelectionSort(std::string[] array, int size){
 }
 
 //Adapted from zybook
-void Merge(std::string[] strs, int from, int mid, int to){
+void Merge(std::string strs[], int from, int mid, int to){
 	//create a new array in order to make it easier.
 	int size = to - from + 1;
-	int* tempStorage = new int[size];
+	std::string* tempStorage = new std::string[size];
 	
 	//loop through the new array with two "pointers" 
 	//the pointers will start at from, and mid+1
@@ -124,7 +128,7 @@ void Merge(std::string[] strs, int from, int mid, int to){
 		}
 		else{
 			strs[j] = strs[jpointer];
-			i2++;
+			jpointer++;
 		}
 		j++;
 	}
@@ -142,38 +146,30 @@ void Merge(std::string[] strs, int from, int mid, int to){
 	}
 	
 	//fill original array from tempStorge
-	for(j = 0; j < n; j++){
+	for(j = 0; j < size; j++){
 		strs[from + j] = tempStorage[j];
 	}
 	
 	delete[] tempStorage;
 }
 //o(nlogn)
-static void Algorithms::MergeSort(std::string[] strings, int from, int to){
+void SortingAlgorithms::MergeSort(std::string strings[], int from, int to){
 	if(from == to) return;
 	int mid = (from + to) / 2;
 	MergeSort(strings,from, mid);
 	MergeSort(strings, mid+1, to);
 	Merge(strings, from, mid, to);
 }
-//o(nlogn)
 //Adapted from zybook
-static void Algorithms::QuickSort(std::string[] array, int from, int to){
-	if(from >= to) {return;}
-	int p = partition(array, from, to);
-	QuickSort(array,from,p);
-	QuickSort(array,p+1,to);
-		
-}
-//Adapted from zybook
-void partition(std::string[] list, int from,int to){
+int partition(std::string list[], int from,int to){
+	
 	//set to left pivot
 	std::string pivot = list[from];
 	//two iterators that goes towards the middle
 	int leftIterator = from-1;
 	int rightIterator = to+1;
 	
-	while(leftIterator<j){
+	while(leftIterator < rightIterator){
 		leftIterator++;
 		while (AlphabetValue(list[leftIterator], pivot)) {
 			leftIterator++;
@@ -188,4 +184,20 @@ void partition(std::string[] list, int from,int to){
 	}
 	return rightIterator;
 	
+}
+//o(nlogn)
+//Adapted from zybook
+void SortingAlgorithms::QuickSort(std::string array[], int from, int to){
+	if(from >= to) {return;}
+	int p = partition(array, from, to);
+	QuickSort(array,from,p);
+	QuickSort(array,p+1,to);
+		
+}
+
+
+void SortingAlgorithms::CopyString(std::string from[], std::string to[] , int sizes){
+	for(int i = 0; i < sizes; i++){
+		to[i] = from[i];
+	}
 }

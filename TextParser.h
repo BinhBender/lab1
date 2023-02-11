@@ -15,11 +15,9 @@ private:
 	std::ifstream ifile;
 	std::string* tokens;
 public:
-	TextParser();
-	//constructor for file
+	TextParser();	//constructor for file
 	TextParser(std::string);
-	//delete the new memory when it goes out of scope
-	~TextParser();
+	~TextParser();	//delete the new memory when it goes out of scope
 	std::string* GetToken();
 	int GetSize();
 	bool Parse(int limit);

@@ -1,10 +1,5 @@
 #include "Timer.h"
 
-//constructor doesn't need to do anything special
-Timer::Timer(){
-
-}
-	
 //sets the to n so that it could be used as the starting number
 void Timer::StartTime(){
 	start = std::chrono::high_resolution_clock::now();

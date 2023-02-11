@@ -2,6 +2,10 @@
 #include <unordered_map>
 #include <iostream>
 
+int TextParser::GetSize(){
+	return wordCount;
+}
+
 TextParser::TextParser(){
 	wordCount=0;
 	tokens = new std::string[1];
@@ -11,6 +15,8 @@ TextParser::TextParser(std::string fileName){
 	std::cout << "Finding File\n";
 	ifile.open(fileName);
 	std::cout << "Found File\n";
+	wordCount=0;
+	tokens = new std::string[1];
 }
 	//delete the new memory when it goes out of scope
 TextParser::~TextParser(){
@@ -46,37 +52,40 @@ bool TextParser::Parse(int limit){
 		ifile >> word;
 		removePunctuation(word);
 		//check if the word is one of the prohibited
-		if(prohibited_words[word] == 0){
-			//since a map inserts an element anytime it is accessed with
-			//a different key, we need to remove it in order to save some 
-			//memory
-			prohibited_words.erase(word);
+		//but just in case there is more than one in a row
+		//loop it
+		while(prohibited_words[word] == 1) ifile >> word;
+		
+		//since a map inserts an element anytime it is accessed with
+		//a different key, we need to remove it in order to save some 
+		//memory since this is looking at a lot of words
+		prohibited_words.erase(word);
 			
-			//increases the size per loop
-			wordCount++;
-			//make a placeholder pointer for the string array before deleting.
-			std::string* dummy = tokens;
+		//increases the size per loop
+		wordCount++;
+		//make a placeholder pointer for the string array before deleting.
+		std::string* dummy = tokens;
+		
+		//uses the size to make a dynamically allocated array
+		tokens = new std::string[wordCount];
 			
-			//uses the size to make a dynamically allocated array
-			tokens = new std::string[wordCount];
-			//copy all of the words from the previous array into the new one.
-			for(int i = 0; i < wordCount - 1; i++){
+		//copy all of the words from the previous array into the new one.
+		for(int i = 0; i < wordCount - 1; i++){
 				tokens[i] = dummy[i];
-			}
-			//delete old array
-			delete[] dummy;
-			
-			//insert new word into array.
-			tokens[wordCount - 1] = word;
 		}
+		//delete old array
+		delete[] dummy;
+			
+		//insert new word into array.
+		tokens[wordCount - 1] = word;
+		
 		
 	}
 	
 	return true;
 }
-int TextParser::GetSize(){
-	return wordCount;
-}
+
+
 std::string* TextParser::GetToken(){
 	return tokens;
 }
