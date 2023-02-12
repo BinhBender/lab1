@@ -74,7 +74,7 @@ void SortingAlgorithms::BubbleSort(std::string array[], int size){
 				isSorted = false;
 			}
 			
-			if(!isSorted) {break;}
+			if(isSorted) {break;}
 		}
 	}
 }
@@ -114,7 +114,7 @@ void Merge(std::string strs[], int from, int mid, int to){
 	//pointers will compare with the values of each other
 	//and the pointer that has the lower value will insert
 	//that value into the new array and shift up once
-	int ipointer = 0;
+	int ipointer = from;
 	int jpointer = mid + 1;
 	int j = 0;
 	while(ipointer <= mid && jpointer <=to){
@@ -123,11 +123,11 @@ void Merge(std::string strs[], int from, int mid, int to){
 		//ipointer otherwise add from jpointer.
 		
 		if(AlphabetValue(strs[ipointer], strs[jpointer])){
-			strs[j] = strs[ipointer];
+			tempStorage[j] = strs[ipointer];
 			ipointer++;
 		}
 		else{
-			strs[j] = strs[jpointer];
+			tempStorage[j] = strs[jpointer];
 			jpointer++;
 		}
 		j++;

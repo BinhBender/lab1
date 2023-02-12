@@ -17,7 +17,7 @@ std::string* AlgoTest::GetStringArray(){
 	return placeHolder;
 }
 void AlgoTest::PrintTime(){
-	const int width = 10;
+	const int width = 20;
 	std::cout << std::setw(width * 3 + 1) << std::setfill('=') << '\n' << std::setfill(' ');
 	std::cout << std::setw(width) << std::left << "Time: " << std::right;
 	std::cout << std::setw(width) << durationUnsort << std::setw(width) << durationSort << std::endl;

@@ -8,7 +8,7 @@
 #include "TextParser.h"
 #include "AlgoTest.h"
 #define PARSE_SIZE 5000
-#define WIDTH 10
+#define WIDTH 20
 void SortAllAlgorithms(TextParser&, TextParser&);
 void SortTwoAlgorithms(TextParser&, TextParser&);
 //main should only be the "gui" and should not have any of the algorithms explicitly
@@ -59,7 +59,7 @@ int main(){
 	
 	TextParser text1("beemoviescript.txt");
 	text1.Parse(PARSE_SIZE);
-	TextParser text2("RomeoAndJuliet");
+	TextParser text2("RomeoAndJuliet.txt");
 	text2.Parse(PARSE_SIZE * 5);
 	
 	while(choice == 'Y'){
