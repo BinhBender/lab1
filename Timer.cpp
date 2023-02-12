@@ -9,5 +9,5 @@ void Timer::StartTime(){
 double Timer::EndTime(){
 	end = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> timespan = std::chrono::duration_cast<std::chrono::duration<double>>(end-start);
-	return timespan.count();
+	return timespan.count() * 1000;
 }

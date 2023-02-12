@@ -9,7 +9,7 @@ void swap(std::string& a, std::string& b){
 }
 
 //helper function to find the lower alphabetical word
-//returns true if less
+//returns true if a is "less than" b
 bool AlphabetValue(std::string& a, std::string& b){
 	
 	//if i preemtively set it to a.size() i won't 
@@ -166,10 +166,12 @@ int partition(std::string list[], int from,int to){
 	//set to left pivot
 	std::string pivot = list[from];
 	//two iterators that goes towards the middle
-	int leftIterator = from-1;
-	int rightIterator = to+1;
+	int leftIterator = from - 1;
+	int rightIterator = to + 1;
+	
 	
 	while(leftIterator < rightIterator){
+		
 		leftIterator++;
 		while (AlphabetValue(list[leftIterator], pivot)) {
 			leftIterator++;

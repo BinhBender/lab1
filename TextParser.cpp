@@ -15,13 +15,15 @@ TextParser::TextParser(std::string fileName){
 	std::cout << "Finding File\n";
 	ifile.open(fileName);
 	std::cout << "Found File\n";
-	wordCount=0;
+	wordCount = 0;
 	tokens = new std::string[1];
 }
-	//delete the new memory when it goes out of scope
+
+//delete the new memory when it goes out of scope
 TextParser::~TextParser(){
 	delete[] tokens;
 }
+
 void removePunctuation(std::string& input){
 	//clean the word first (no puncutation marks)
 	for(long unsigned int i = 0; i < input.size(); i++){
@@ -71,7 +73,7 @@ bool TextParser::Parse(int limit){
 			
 		//copy all of the words from the previous array into the new one.
 		for(int i = 0; i < wordCount - 1; i++){
-				tokens[i] = dummy[i];
+			tokens[i] = dummy[i];
 		}
 		//delete old array
 		delete[] dummy;

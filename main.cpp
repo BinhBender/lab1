@@ -6,11 +6,11 @@
 #include "Timer.h"
 #include "Algorithms.h"
 #include "TextParser.h"
+#include "AlgoTest.h"
 #define PARSE_SIZE 5000
-
-void SortAllAlgorithms(TextParser* , TextParser* );
-void SortTwoAlgorithms(std::string*);
-void PrintFirstLast50(std::string[], int);
+#define WIDTH 10
+void SortAllAlgorithms(TextParser&, TextParser&);
+void SortTwoAlgorithms(TextParser&, TextParser&);
 //main should only be the "gui" and should not have any of the algorithms explicitly
 int main(){
 	
@@ -53,42 +53,43 @@ int main(){
 	*/
 
 	std::cout << "Hello User! Would you like to try and see the speed and efficiencies of some famous sorting algorithms?"<< std::endl;
-	std::cout << "Y/N";
+	std::cout << "Y/N: ";
 	char choice;
 	std::cin >> choice;
 	
 	TextParser text1("beemoviescript.txt");
 	text1.Parse(PARSE_SIZE);
-	TextParser text2("some jargan");
+	TextParser text2("RomeoAndJuliet");
 	text2.Parse(PARSE_SIZE * 5);
 	
 	while(choice == 'Y'){
 	//ask for choice between all alogrithms or just two random ones
 		std::cout << "1- All Algorithms\n2-Two Random Algorithms\n";
+		
 		//repeat turns off
 		bool repeat = true;
 		while(repeat){
 			
-			char algoChoice;
+			int algoChoice;
 			std::cin >> algoChoice;
 			switch (algoChoice){
 				case 1:
-				SortAllAlgorithms(&text1, &text2);
+				SortAllAlgorithms(text1, text2);
 				repeat = false;
 				break;
 				case 2:
+				SortTwoAlgorithms(text1, text2);
 				repeat = false;
 				break;
 				default:
 				//repeat
 				
 				std::cout << "Please Choose a Valid Option\n";
-				break;
+
 			}
 		}
 		std::cout << "Would you like to run the program again?\n";
-		std::cout << "Y/N";
-		char choice;
+		std::cout << "Y/N: ";
 		std::cin >> choice;
 	}
 	//Insertion sort
@@ -98,108 +99,116 @@ int main(){
 	
 }
 
-void PrintFirstLast(std::string stringList[], int ARRAYSIZE){
-	//make two loops to print first 50 of the array
-	//and last 50
-	
-	int endline = 0; //counter to add an std::endl every few words
-	std::cout << "====First 50 Words====\n";
-	for(int i = 0; i < 50; i++){
-		std::cout << stringList[i] << ", ";			   //new line every few words
-		
-		if(endline % 10 == 0) std::cout<<std::endl;
-	}
-	
-	std::cout << "\n====Last 50 Words====\n";
-	for(int i = ARRAYSIZE - 51; i < ARRAYSIZE; i++){
-		std::cout << stringList[i] << ", ";
-		
-		if(endline % 10 == 0) std::cout<<std::endl; //new line every few words
-	}
-}
-void SortAllAlgorithms(TextParser* shortText, TextParser* longText){
-	
+void SortAllAlgorithms(TextParser& shortText, TextParser& longText){
+
 	//each algorithm needs at least 4 sorts
 	//one for an unsorted array
 	//one for a sorted array
 	//one longer unsorted array
 	//one longer sorted array	
-	int shortSize = shortText->GetSize();
-	int longSize = longText->GetSize();
-	std::string shortTextTemp[shortSize];
-	std::string longTextTemp[longSize];
+	AlgoTest algoTest;
 	
-	SortingAlgorithms::CopyString(shortTextTemp, shortText->GetToken(), shortSize);
-	SortingAlgorithms::CopyString(longTextTemp, longText->GetToken(), longSize);
-	SortingAlgorithms::BubbleSort(shortTextTemp, shortSize); 	//UNSORTED
-	SortingAlgorithms::BubbleSort(longTextTemp, longSize); 		//UNSORTED
-	SortingAlgorithms::BubbleSort(shortTextTemp, shortSize); 	//SORTED
-	SortingAlgorithms::BubbleSort(longTextTemp, longSize); 		//SORTED
 	
-	SortingAlgorithms::CopyString(shortTextTemp, shortText->GetToken(), shortSize);
-	SortingAlgorithms::CopyString(longTextTemp, longText->GetToken(), longSize);
-	SortingAlgorithms::InsertionSort(shortTextTemp, shortSize); //UNSORTED
-	SortingAlgorithms::InsertionSort(longTextTemp, longSize); 	//UNSORTED
-	SortingAlgorithms::InsertionSort(shortTextTemp, shortSize); //SORTED
-	SortingAlgorithms::InsertionSort(longTextTemp, longSize); //SORTED
+	std::cout << std::setw(WIDTH * 2) <<std::right << "Unsorted";
+	std::cout << std::setw(WIDTH + 1) <<  "Sorted\n";
 	
-	SortingAlgorithms::CopyString(shortTextTemp, shortText->GetToken(), shortSize);
-	SortingAlgorithms::CopyString(longTextTemp, longText->GetToken(), longSize);
-	SortingAlgorithms::SelectionSort(shortTextTemp, shortSize); //UNSORTED
-	SortingAlgorithms::SelectionSort(longTextTemp, longSize); 	//UNSORTED
-	SortingAlgorithms::SelectionSort(shortTextTemp, shortSize); //SORTED
-	SortingAlgorithms::SelectionSort(longTextTemp, longSize); 	//SORTED
+	std::cout << "Bubble Sort\n";
+	algoTest.BubbleSortTest(shortText);
+	algoTest.PrintTime();
+	algoTest.BubbleSortTest(longText);
+	algoTest.PrintTime();
 	
-	SortingAlgorithms::CopyString(shortTextTemp, shortText->GetToken(), shortSize);
-	SortingAlgorithms::CopyString(longTextTemp, longText->GetToken(), longSize);
-	SortingAlgorithms::MergeSort(shortTextTemp, 0, shortSize); //UNSORTED
-	SortingAlgorithms::MergeSort(longTextTemp, 0, longSize); //UNSORTED
-	SortingAlgorithms::MergeSort(shortTextTemp, 0, shortSize); //SORTED
-	SortingAlgorithms::MergeSort(longTextTemp, 0, longSize); //SORTED
 	
-	SortingAlgorithms::CopyString(shortTextTemp, shortText->GetToken(), shortSize);
-	SortingAlgorithms::CopyString(longTextTemp, longText->GetToken(), longSize);
-	SortingAlgorithms::QuickSort(shortTextTemp, 0, shortSize); //UNSORTED
-	SortingAlgorithms::QuickSort(longTextTemp, 0, longSize); //UNSORTED
-	SortingAlgorithms::QuickSort(shortTextTemp, 0, shortSize); //SORTED
-	SortingAlgorithms::QuickSort(longTextTemp, 0, longSize); //SORTED
+	std::cout << "Insertion Sort\n";
+	algoTest.InsertionSortTest(shortText);
+	algoTest.PrintTime();
+	algoTest.InsertionSortTest(longText);
+	algoTest.PrintTime();
+	
+	
+	std::cout << "Selection Sort\n";
+	algoTest.SelectionSortTest(shortText);
+	algoTest.PrintTime();
+	algoTest.SelectionSortTest(longText);
+	algoTest.PrintTime();
+	
+	
+	std::cout << "Merge Sort\n";
+	algoTest.MergeSortTest(shortText);
+	algoTest.PrintTime();
+	algoTest.MergeSortTest(longText);
+	algoTest.PrintTime();
+	
+	
+	std::cout << "QuickSort\n";
+	algoTest.QuickSortTest(shortText);
+	algoTest.PrintTime();
+	algoTest.QuickSortTest(longText);
+	algoTest.PrintTime();
+	
+	algoTest.PrintFirstLast();
 };
 	
-void SortTwoAlgorithms(TextParser* shortText, TextParser* longText){
+void SortTwoAlgorithms(TextParser& shortText, TextParser& longText){
 	//first random nlogn
 	int random = std::rand() % 2;
-	Timer t;
+	
+	std::cout << std::setw(WIDTH * 2) <<std::right << "Unsorted";
+	std::cout << std::setw(WIDTH + 1) <<  "Sorted\n";
+	
+	AlgoTest algoTest;
+	
 	switch(random){
 		case 0:
 		//merge sort
 		std::cout << "Merge Sort" << std::endl;
-		t.StartTime();
-		//Algorithms::MergeSort();
-		t.EndTime();
+			std::cout << "Merge Sort\n";
+			algoTest.MergeSortTest(shortText);
+			algoTest.PrintTime();
+			algoTest.MergeSortTest(longText);
+			algoTest.PrintTime();
 		
 		break;
 		case 1:
 		//Quick Sort
-		std::cout << "Quick Sort" << std::endl;
-		t.StartTime();
-		//Algorithms::QuickSort();
-		t.EndTime();
+			std::cout << "QuickSort\n";
+			algoTest.QuickSortTest(shortText);
+			algoTest.PrintTime();
+			algoTest.QuickSortTest(longText);
+			algoTest.PrintTime();
 		
 		break;
-	};
+	}
 	//second random n^2 
 	random = std::rand() % 3;
 	switch(random){
 		case 0:
 		//Selection Sort
+			std::cout << "Selection Sort\n";
+			algoTest.SelectionSortTest(shortText);
+			algoTest.PrintTime();
+			algoTest.SelectionSortTest(longText);
+			algoTest.PrintTime();
 		break;
 		case 1:
 		//Insertion Sort
+			std::cout << "Insertion Sort\n";
+			algoTest.InsertionSortTest(shortText);
+			algoTest.PrintTime();
+			algoTest.InsertionSortTest(longText);
+			algoTest.PrintTime();	
 		break;
 		case 2:
 		//Bubble Sort
-		//Algorithms::BubbleSort();
+			std::cout << "Bubble Sort\n";
+			algoTest.BubbleSortTest(shortText);
+			algoTest.PrintTime();
+			algoTest.BubbleSortTest(longText);
+			algoTest.PrintTime();
 		
 		break;
-	};
+	}
+	
+	
+	algoTest.PrintFirstLast();
 }
