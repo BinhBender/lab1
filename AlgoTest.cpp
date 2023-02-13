@@ -18,6 +18,7 @@ std::string* AlgoTest::GetStringArray(){
 }
 void AlgoTest::PrintTime(){
 	const int width = 20;
+	std::cout << std::fixed << std::setprecision(2);
 	std::cout << std::setw(width * 3 + 1) << std::setfill('=') << '\n' << std::setfill(' ');
 	std::cout << std::setw(width) << std::left << "Time: " << std::right;
 	std::cout << std::setw(width) << durationUnsort << std::setw(width) << durationSort << std::endl;
@@ -143,7 +144,7 @@ void AlgoTest::QuickSortTest(TextParser& Txt){
 		
 		//test start
 		time.StartTime();
-		SortingAlgorithms::QuickSort(placeHolder,0, lastSize);
+		SortingAlgorithms::QuickSort(placeHolder, 0, lastSize - 1);
 		durationUnsort += time.EndTime();
 	}
 	durationUnsort /= testNumber;
@@ -152,7 +153,7 @@ void AlgoTest::QuickSortTest(TextParser& Txt){
 	//since the placeHolder doesn't reset until it loops again, for the final loop of the placeholder, 
 	for(int i = 0; i < testNumber; i++){
 		time.StartTime();
-		SortingAlgorithms::QuickSort(placeHolder,0, lastSize);
+		SortingAlgorithms::QuickSort(placeHolder,0, lastSize - 1);
 		time.EndTime();
 		durationSort += time.EndTime();
 	}
@@ -172,7 +173,7 @@ void AlgoTest::MergeSortTest(TextParser& Txt){
 		
 		//test start
 		time.StartTime();
-		SortingAlgorithms::MergeSort(placeHolder,0, lastSize);
+		SortingAlgorithms::MergeSort(placeHolder,0, lastSize - 1);
 		durationUnsort += time.EndTime();
 	}
 	durationUnsort /= testNumber;
@@ -182,7 +183,7 @@ void AlgoTest::MergeSortTest(TextParser& Txt){
 	//it doesn't need be mutated since its already sorted
 	for(int i = 0; i < testNumber; i++){
 		time.StartTime();
-		SortingAlgorithms::MergeSort(placeHolder,0, lastSize);
+		SortingAlgorithms::MergeSort(placeHolder,0, lastSize - 1);
 		time.EndTime();
 		durationSort += time.EndTime();
 	}

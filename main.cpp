@@ -8,7 +8,7 @@
 #include "TextParser.h"
 #include "AlgoTest.h"
 #define PARSE_SIZE 5000
-#define WIDTH 20
+#define WIDTH 10
 void SortAllAlgorithms(TextParser&, TextParser&);
 void SortTwoAlgorithms(TextParser&, TextParser&);
 //main should only be the "gui" and should not have any of the algorithms explicitly
@@ -28,29 +28,7 @@ int main(){
 	//Quick--
 	//Quickly
 	
-/*//this is to test out parse & timer
-	std::cout << "Starting"<< std::endl;
-	TextParser TP("beemoviescript.txt");
-	std::cout << "Beginning Parse\n";
-	//Timer t;
-	//t.StartTime();
-	std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
-	TP.Parse(5000);
-	//std::cout << t.EndTime();
-	
-	std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<double> timespan = std::chrono::duration_cast<std::chrono::duration<double>>(t2-t1);
-	std::cout << (timespan.count() * 1000) << " ms.";
-	std::cout << "\nParse Ended\n";
-	std::string* tokenized = TP.GetToken();
-	
-	for(int i = 0; i < TP.size(); i++){
-		std::cout << tokenized[i] << " ";
-		if(i % 10 == 0) std::cout << std::endl;
-	}
-	
-	std::cout << "Ending"<< std::endl;
-	*/
+
 
 	std::cout << "Hello User! Would you like to try and see the speed and efficiencies of some famous sorting algorithms?"<< std::endl;
 	std::cout << "Y/N: ";
@@ -58,7 +36,27 @@ int main(){
 	std::cin >> choice;
 	
 	TextParser text1("beemoviescript.txt");
-	text1.Parse(PARSE_SIZE);
+	text1.Parse(10);
+	AlgoTest algoTest;
+	for(int i = 0; i < 10 ; i++){
+		std::cout << text1.GetToken()[i] << std::endl;
+	}
+	std::cout << "QuickSort\n";
+	int a;
+	std::cin >> a;
+	SortingAlgorithms::QuickSort(text1.GetToken(), 1, 5);
+	
+	for(int i = 0; i < 10;i++){
+		std::cout << text1.GetToken()[i] << std::endl;
+	}
+	//algoTest.QuickSortTest(text1);
+	//algoTest.PrintTime();
+	//algoTest.QuickSortTest(longText);
+	//algoTest.PrintTime();
+	//std::cout << std::endl;
+	
+	//algoTest.PrintFirstLast();
+	/*
 	TextParser text2("RomeoAndJuliet.txt");
 	text2.Parse(PARSE_SIZE * 5);
 	
@@ -95,7 +93,7 @@ int main(){
 	//Insertion sort
 	//Selection Sort
 	//Merge Sort
-	//Quick Sort
+	//Quick Sort*/
 	
 }
 
@@ -117,13 +115,14 @@ void SortAllAlgorithms(TextParser& shortText, TextParser& longText){
 	algoTest.PrintTime();
 	algoTest.BubbleSortTest(longText);
 	algoTest.PrintTime();
-	
+	std::cout << std::endl;
 	
 	std::cout << "Insertion Sort\n";
 	algoTest.InsertionSortTest(shortText);
 	algoTest.PrintTime();
 	algoTest.InsertionSortTest(longText);
 	algoTest.PrintTime();
+	std::cout << std::endl;
 	
 	
 	std::cout << "Selection Sort\n";
@@ -131,6 +130,7 @@ void SortAllAlgorithms(TextParser& shortText, TextParser& longText){
 	algoTest.PrintTime();
 	algoTest.SelectionSortTest(longText);
 	algoTest.PrintTime();
+	std::cout << std::endl;
 	
 	
 	std::cout << "Merge Sort\n";
@@ -138,6 +138,7 @@ void SortAllAlgorithms(TextParser& shortText, TextParser& longText){
 	algoTest.PrintTime();
 	algoTest.MergeSortTest(longText);
 	algoTest.PrintTime();
+	std::cout << std::endl;
 	
 	
 	std::cout << "QuickSort\n";
@@ -145,6 +146,7 @@ void SortAllAlgorithms(TextParser& shortText, TextParser& longText){
 	algoTest.PrintTime();
 	algoTest.QuickSortTest(longText);
 	algoTest.PrintTime();
+	std::cout << std::endl;
 	
 	algoTest.PrintFirstLast();
 };

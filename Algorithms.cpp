@@ -1,17 +1,17 @@
 #include "Algorithms.h"
-
+#include <iostream>
 void swap(std::string& a, std::string& b){
-	std::string c;
+	std::string temp;
 	
-	c = a;
+	temp = a;
 	a = b;
-	b = c;
+	b = temp;
 }
 
 //helper function to find the lower alphabetical word
 //returns true if a is "less than" b
-bool AlphabetValue(std::string& a, std::string& b){
-	
+bool AlphabetValue(std::string a, std::string b){
+	std::cout <<"Finding val..\n";
 	//if i preemtively set it to a.size() i won't 
 	//have to do an else statement saves a tiny bit of time
 	long unsigned int sizeLimit = a.size();
@@ -21,10 +21,11 @@ bool AlphabetValue(std::string& a, std::string& b){
 	
 	for(long unsigned int i = 0; i< sizeLimit; i++){
 		//capitalize all of them so 97 - 122 (a-z) 65-90(A-Z)
-		char letterA, letterB;
+		int letterA = int(a[i]);
+		int letterB = int(b[i]);
 		//checks if the letter is a lower case or not and then subtracts 32
-		if(a[i] > 96 && a[i] < 123) letterA = a[i] - 32;
-		if(b[i] > 96 && b[i] < 123) letterB = b[i] - 32;
+		if(letterA > 96 && letterA < 123) letterA -= 32;
+		if(letterB > 96 && letterB < 123) letterB -= 32;
 		
 		//checks their ascii values to compare
 		if(letterA > letterB){
@@ -37,7 +38,7 @@ bool AlphabetValue(std::string& a, std::string& b){
 		//dangerous if the word has "!" "?" or any punctuation marks.
 		//Parser should remove these.
 	}
-	
+	std::cout << "ending alph\n";
 	//if the two are completely identical, return A
 	return true;
 	
@@ -62,15 +63,20 @@ void SortingAlgorithms::BubbleSort(std::string array[], int size){
 	
 	//nested loop since bubble sort is basically 
 	//"for every i, check j"
-	for(int i = 0; i < size; i++){
+	for(unsigned int i = 0; i < size; i++){
 		//incase the array is already sorted
 		//we assume that it is true
-		//and when a swap happens, it switches to negative and breaks
+		//and when a swap happens, 
+		//it means that its not sorted and so
+		//it switches to negative and keeps looping
 		bool isSorted = true;
-		for(int j = 1; j < size - i; j++){
+		for(unsigned int j = 1; j < size - i; j++){
 			//if the previous string is 
 			if(AlphabetValue(array[j], array[j-1])) {
-				swap(array[j], array[j-1]);
+				//swap(array[j], array[j-1]);
+				std::string ph = array[j];
+				array[j] = array[j-1];
+				array[j-1] = ph;
 				isSorted = false;
 			}
 			
@@ -108,7 +114,7 @@ void Merge(std::string strs[], int from, int mid, int to){
 	//create a new array in order to make it easier.
 	int size = to - from + 1;
 	std::string* tempStorage = new std::string[size];
-	
+	//std::cout << "Merge\n";
 	//loop through the new array with two "pointers" 
 	//the pointers will start at from, and mid+1
 	//pointers will compare with the values of each other
@@ -154,46 +160,45 @@ void Merge(std::string strs[], int from, int mid, int to){
 }
 //o(nlogn)
 void SortingAlgorithms::MergeSort(std::string strings[], int from, int to){
-	if(from == to) return;
+	if(from >= to) return;
+	//std::cout <<"split ";
 	int mid = (from + to) / 2;
 	MergeSort(strings,from, mid);
 	MergeSort(strings, mid+1, to);
 	Merge(strings, from, mid, to);
 }
 //Adapted from zybook
-int partition(std::string list[], int from,int to){
-	
+int _partition(std::string list[], int from,int to){
+	std::cout << "start partition ";
 	//set to left pivot
 	std::string pivot = list[from];
+	
 	//two iterators that goes towards the middle
-	int leftIterator = from - 1;
-	int rightIterator = to + 1;
+	int i = from - 1;
+	int j = to + 1;
 	
 	
-	while(leftIterator < rightIterator){
-		
-		leftIterator++;
-		while (AlphabetValue(list[leftIterator], pivot)) {
-			leftIterator++;
-		}
-		rightIterator--;
-		while(!AlphabetValue(list[rightIterator], pivot)) {
-			rightIterator--;
-		}
-		if(leftIterator < rightIterator) {
-			swap(list[leftIterator],list[rightIterator]);
-		}
+	while(i < j){
+		i++; 
+		while(AlphabetValue(list[i], pivot)) {i++;}
+		j--; 
+		while(AlphabetValue(pivot,list[j])) {j--;}
+		if(i < j) {swap(list[i], list[j]);}
+		std::cout << i << " " << j << std::endl;
+		std::cout.flush();
 	}
-	return rightIterator;
+	return j;
 	
 }
 //o(nlogn)
 //Adapted from zybook
-void SortingAlgorithms::QuickSort(std::string array[], int from, int to){
+void SortingAlgorithms::QuickSort(std::string list[], int from, int to){
 	if(from >= to) {return;}
-	int p = partition(array, from, to);
-	QuickSort(array,from,p);
-	QuickSort(array,p+1,to);
+	std::cout << from << " " << to << std::endl;
+	int p = _partition(list, from, to);
+	std::cout << "p: " << p << std::endl;
+	QuickSort(list,from,p);
+	QuickSort(list,p+1,to);
 		
 }
 
