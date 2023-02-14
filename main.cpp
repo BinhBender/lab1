@@ -29,24 +29,23 @@ int main(){
 	//Quickly
 	
 
-
+/*
 	std::cout << "Hello User! Would you like to try and see the speed and efficiencies of some famous sorting algorithms?"<< std::endl;
 	std::cout << "Y/N: ";
 	char choice;
 	std::cin >> choice;
-	
+	*/
 	TextParser text1("beemoviescript.txt");
-	text1.Parse(10);
+	text1.Parse(50);
 	AlgoTest algoTest;
-	for(int i = 0; i < 10 ; i++){
+	for(int i = 0; i < 50 ; i++){
 		std::cout << text1.GetToken()[i] << std::endl;
 	}
-	std::cout << "QuickSort\n";
-	int a;
-	std::cin >> a;
-	SortingAlgorithms::QuickSort(text1.GetToken(), 1, 5);
+	std::cout << "\n\nQuickSort\n\n";
+
+	SortingAlgorithms::QuickSort(text1.GetToken(), 0, 10);
 	
-	for(int i = 0; i < 10;i++){
+	for(int i = 0; i < 50;i++){
 		std::cout << text1.GetToken()[i] << std::endl;
 	}
 	//algoTest.QuickSortTest(text1);

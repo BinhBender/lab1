@@ -5,8 +5,8 @@ AlgoTest::AlgoTest(){
 	durationSort = 0;
 	
 	//create an empty array so the sorting tests can delete preemtively
-	placeHolder = new std::string[1];
-	listOfDurations = new doublePair[1];
+	placeHolder = nullptr;
+	listOfDurations = nullptr;
 }
 
 AlgoTest::~AlgoTest(){

@@ -1,16 +1,18 @@
 #include "Algorithms.h"
 #include <iostream>
-void swap(std::string& a, std::string& b){
-	std::string temp;
-	
-	temp = a;
-	a = b;
-	b = temp;
+#include <algorithm>
+void swap(std::string* a, std::string* b){
+	std::string temp = *a;
+	*a = *b;
+	*b = temp;
 }
 
 //helper function to find the lower alphabetical word
 //returns true if a is "less than" b
 bool AlphabetValue(std::string a, std::string b){
+	
+	
+	/*
 	std::cout <<"Finding val..\n";
 	//if i preemtively set it to a.size() i won't 
 	//have to do an else statement saves a tiny bit of time
@@ -19,6 +21,8 @@ bool AlphabetValue(std::string a, std::string b){
 		sizeLimit = b.size();
 	}
 	
+	 I don't know why this does not work the way I want them to.
+	 * Going to use the standard "<" operator
 	for(long unsigned int i = 0; i< sizeLimit; i++){
 		//capitalize all of them so 97 - 122 (a-z) 65-90(A-Z)
 		int letterA = int(a[i]);
@@ -37,10 +41,13 @@ bool AlphabetValue(std::string a, std::string b){
 		//they keep going through the loop
 		//dangerous if the word has "!" "?" or any punctuation marks.
 		//Parser should remove these.
-	}
-	std::cout << "ending alph\n";
-	//if the two are completely identical, return A
-	return true;
+	}*/
+	//to turn the string into a lower case
+	std::transform(a.begin(),a.end(),a.begin(), [](unsigned char c) {return std::tolower(c); });
+	std::transform(b.begin(),b.end(),b.begin(), [](unsigned char c) {return std::tolower(c); });
+	
+	
+	return a.compare(b);
 	
 }
 
@@ -128,7 +135,7 @@ void Merge(std::string strs[], int from, int mid, int to){
 		//if ipointer is less than jpointer, add value from 
 		//ipointer otherwise add from jpointer.
 		
-		if(AlphabetValue(strs[ipointer], strs[jpointer])){
+		if(strs[ipointer] < strs[jpointer]){
 			tempStorage[j] = strs[ipointer];
 			ipointer++;
 		}
@@ -169,7 +176,7 @@ void SortingAlgorithms::MergeSort(std::string strings[], int from, int to){
 }
 //Adapted from zybook
 int _partition(std::string list[], int from,int to){
-	std::cout << "start partition ";
+	//std::cout << "start partition ";
 	//set to left pivot
 	std::string pivot = list[from];
 	
@@ -180,26 +187,31 @@ int _partition(std::string list[], int from,int to){
 	
 	while(i < j){
 		i++; 
-		while(AlphabetValue(list[i], pivot)) {i++;}
+		//while(list[i] < pivot) {i++;}
+		while(AlphabetValue(list[i], pivot) < 0) {i++;}
 		j--; 
-		while(AlphabetValue(pivot,list[j])) {j--;}
-		if(i < j) {swap(list[i], list[j]);}
-		std::cout << i << " " << j << std::endl;
-		std::cout.flush();
+		//while(list[j] > pivot) {j--;}
+		while(AlphabetValue(list[j], pivot) > 0) {j--;}
+		if(i < j) {	
+			swap(&list[i], &list[j]);
+
+		}
+		//std::cout << i << " " << j << std::endl;
+		//std::cout.flush();
 	}
 	return j;
 	
 }
 //o(nlogn)
 //Adapted from zybook
-void SortingAlgorithms::QuickSort(std::string list[], int from, int to){
-	if(from >= to) {return;}
-	std::cout << from << " " << to << std::endl;
-	int p = _partition(list, from, to);
-	std::cout << "p: " << p << std::endl;
-	QuickSort(list,from,p);
-	QuickSort(list,p+1,to);
-		
+void SortingAlgorithms::QuickSort(std::string strlist[], int from, int to){
+	if(from >= to) return;
+		std::cout << from << " " << to << std::endl;
+		int p = _partition(strlist, from, to);
+		std::cout << "p: " << p << std::endl;
+		QuickSort(strlist,from,p);
+		QuickSort(strlist,p+1,to);
+	
 }
 
 

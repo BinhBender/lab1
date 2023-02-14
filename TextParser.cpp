@@ -56,12 +56,16 @@ bool TextParser::Parse(int limit){
 		//check if the word is one of the prohibited
 		//but just in case there is more than one in a row
 		//loop it
-		while(prohibited_words[word] == 1) {ifile >> word;}
-		
+		while(prohibited_words[word] == 1) {
 		//since a map inserts an element anytime it is accessed with
 		//a different key, we need to remove it in order to save some 
 		//memory since this is looking at a lot of words
-		prohibited_words.erase(word);
+			prohibited_words.erase(word);
+			ifile >> word;
+		}
+		
+		
+		
 			
 		//increases the size per loop
 		wordCount++;
