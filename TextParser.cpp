@@ -8,7 +8,7 @@ int TextParser::GetSize(){
 
 TextParser::TextParser(){
 	wordCount=0;
-	tokens = new std::string[1];
+	tokens = nullptr;
 }
 	//constructor for file
 TextParser::TextParser(std::string fileName){
@@ -16,7 +16,7 @@ TextParser::TextParser(std::string fileName){
 	ifile.open(fileName);
 	std::cout << "Found File\n";
 	wordCount = 0;
-	tokens = new std::string[1];
+	tokens = nullptr;
 }
 
 //delete the new memory when it goes out of scope
@@ -81,7 +81,7 @@ bool TextParser::Parse(int limit){
 		}
 		//delete old array
 		delete[] dummy;
-			
+		dummy = nullptr;
 		//insert new word into array.
 		tokens[wordCount - 1] = word;
 		

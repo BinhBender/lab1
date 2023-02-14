@@ -9,8 +9,10 @@ void swap(std::string* a, std::string* b){
 
 //helper function to find the lower alphabetical word
 //returns true if a is "less than" b
-bool AlphabetValue(std::string a, std::string b){
+int AlphabetValue(std::string str1, std::string str2){
 	
+	std::string a = str1;
+	std::string b = str2;
 	
 	/*
 	std::cout <<"Finding val..\n";
@@ -46,7 +48,8 @@ bool AlphabetValue(std::string a, std::string b){
 	std::transform(a.begin(),a.end(),a.begin(), [](unsigned char c) {return std::tolower(c); });
 	std::transform(b.begin(),b.end(),b.begin(), [](unsigned char c) {return std::tolower(c); });
 	
-	
+	//returns a positive when its lexicographically greater
+	//returns a negative when its lexicographically less.
 	return a.compare(b);
 	
 }
@@ -55,7 +58,7 @@ int min_position(std::string array[],int from,int to){
 	
 	int min = 0;
 	//goes through array to find the minimum
-	for(int i = from; i < to; i++){
+	for(int i = from+1; i < to; i++){
 		//if array at index i < min, set min to index i
 		if(AlphabetValue(array[i], array[min])){
 			min = i;
@@ -130,12 +133,12 @@ void Merge(std::string strs[], int from, int mid, int to){
 	int ipointer = from;
 	int jpointer = mid + 1;
 	int j = 0;
-	while(ipointer <= mid && jpointer <=to){
+	while((ipointer <= mid) && (jpointer <=to)){
 		
 		//if ipointer is less than jpointer, add value from 
 		//ipointer otherwise add from jpointer.
 		
-		if(strs[ipointer] < strs[jpointer]){
+		if(AlphabetValue(strs[ipointer], strs[jpointer])){
 			tempStorage[j] = strs[ipointer];
 			ipointer++;
 		}
@@ -180,7 +183,7 @@ int _partition(std::string list[], int from,int to){
 	//set to left pivot
 	std::string pivot = list[from];
 	
-	//two iterators that goes towards the middle
+	//two iterators that goes "towards the middle" or until 
 	int i = from - 1;
 	int j = to + 1;
 	
@@ -206,9 +209,9 @@ int _partition(std::string list[], int from,int to){
 //Adapted from zybook
 void SortingAlgorithms::QuickSort(std::string strlist[], int from, int to){
 	if(from >= to) return;
-		std::cout << from << " " << to << std::endl;
+		//std::cout << from << " " << to << std::endl;
 		int p = _partition(strlist, from, to);
-		std::cout << "p: " << p << std::endl;
+		//std::cout << "p: " << p << std::endl;
 		QuickSort(strlist,from,p);
 		QuickSort(strlist,p+1,to);
 	

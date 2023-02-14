@@ -29,25 +29,15 @@ int main(){
 	//Quickly
 	
 
-/*
+
 	std::cout << "Hello User! Would you like to try and see the speed and efficiencies of some famous sorting algorithms?"<< std::endl;
 	std::cout << "Y/N: ";
 	char choice;
 	std::cin >> choice;
-	*/
-	TextParser text1("beemoviescript.txt");
-	text1.Parse(50);
-	AlgoTest algoTest;
-	for(int i = 0; i < 50 ; i++){
-		std::cout << text1.GetToken()[i] << std::endl;
-	}
-	std::cout << "\n\nQuickSort\n\n";
-
-	SortingAlgorithms::QuickSort(text1.GetToken(), 0, 10);
 	
-	for(int i = 0; i < 50;i++){
-		std::cout << text1.GetToken()[i] << std::endl;
-	}
+	TextParser text1("beemoviescript.txt");
+	text1.Parse(PARSE_SIZE);
+
 	//algoTest.QuickSortTest(text1);
 	//algoTest.PrintTime();
 	//algoTest.QuickSortTest(longText);
@@ -55,7 +45,7 @@ int main(){
 	//std::cout << std::endl;
 	
 	//algoTest.PrintFirstLast();
-	/*
+	
 	TextParser text2("RomeoAndJuliet.txt");
 	text2.Parse(PARSE_SIZE * 5);
 	
@@ -70,17 +60,16 @@ int main(){
 			int algoChoice;
 			std::cin >> algoChoice;
 			switch (algoChoice){
-				case 1:
+			case 1:
 				SortAllAlgorithms(text1, text2);
 				repeat = false;
 				break;
-				case 2:
+			case 2:
 				SortTwoAlgorithms(text1, text2);
 				repeat = false;
 				break;
-				default:
+			default:
 				//repeat
-				
 				std::cout << "Please Choose a Valid Option\n";
 
 			}
@@ -92,7 +81,7 @@ int main(){
 	//Insertion sort
 	//Selection Sort
 	//Merge Sort
-	//Quick Sort*/
+	//Quick Sort
 	
 }
 
