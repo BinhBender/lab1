@@ -1,3 +1,6 @@
+//coded by Binh Nguyen 2/16
+
+
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -7,8 +10,10 @@
 #include "Algorithms.h"
 #include "TextParser.h"
 #include "AlgoTest.h"
+
 #define PARSE_SIZE 5000
 #define WIDTH 10
+
 void SortAllAlgorithms(TextParser&, TextParser&);
 void SortTwoAlgorithms(TextParser&, TextParser&);
 //main should only be the "gui" and should not have any of the algorithms explicitly
@@ -78,6 +83,7 @@ int main(){
 		std::cout << "Y/N: ";
 		std::cin >> choice;
 	}
+	std::cout<< "Bye! Bye!\n";
 	//Insertion sort
 	//Selection Sort
 	//Merge Sort
@@ -93,68 +99,101 @@ void SortAllAlgorithms(TextParser& shortText, TextParser& longText){
 	//one longer unsorted array
 	//one longer sorted array	
 	AlgoTest algoTest;
+	int ssize = shortText.GetSize();
+	int lsize = longText.GetSize();
+	double lastShort = 0;
+	//this is shoehorned in
+	std::string* lastsortedShort = new std::string[shortText.GetSize()];
 	
-	
-	std::cout << std::setw(WIDTH * 2) <<std::right << "Unsorted";
+	std::cout << std::setw(WIDTH * 3) <<std::right << "Unsorted";
 	std::cout << std::setw(WIDTH + 1) <<  "Sorted\n";
 	
 	std::cout << "Bubble Sort\n";
 	algoTest.BubbleSortTest(shortText);
 	algoTest.PrintTime();
+	lastShort = algoTest.GetLastSortedDurationPair().x;
+	
 	algoTest.BubbleSortTest(longText);
 	algoTest.PrintTime();
-	std::cout << std::endl;
+	algoTest.ExpectedOutComeN2(lastShort, ssize, lsize);
+	
+	std::cout << std::endl<<std::endl;
+	
 	
 	std::cout << "Insertion Sort\n";
 	algoTest.InsertionSortTest(shortText);
 	algoTest.PrintTime();
+	lastShort = algoTest.GetLastSortedDurationPair().x;
+	
 	algoTest.InsertionSortTest(longText);
 	algoTest.PrintTime();
-	std::cout << std::endl;
+	algoTest.ExpectedOutComeN2(lastShort, ssize, lsize);
+	std::cout << std::endl<<std::endl;
 	
 	
 	std::cout << "Selection Sort\n";
 	algoTest.SelectionSortTest(shortText);
 	algoTest.PrintTime();
+	lastShort = algoTest.GetLastSortedDurationPair().x;
+	
 	algoTest.SelectionSortTest(longText);
 	algoTest.PrintTime();
-	std::cout << std::endl;
+	algoTest.ExpectedOutComeN2(lastShort, ssize, lsize);
+	
+	std::cout << std::endl<<std::endl;
 	
 	
 	std::cout << "Merge Sort\n";
 	algoTest.MergeSortTest(shortText);
 	algoTest.PrintTime();
+	lastShort = algoTest.GetLastSortedDurationPair().x;
+	
 	algoTest.MergeSortTest(longText);
 	algoTest.PrintTime();
-	std::cout << std::endl;
+	algoTest.ExpectedOutComeNLogN(lastShort, ssize, lsize);
+	
+	std::cout << std::endl<<std::endl;
 	
 	
 	std::cout << "QuickSort\n";
 	algoTest.QuickSortTest(shortText);
 	algoTest.PrintTime();
+	lastShort = algoTest.GetLastSortedDurationPair().x;
+	SortingAlgorithms::CopyString(shortText.GetToken(), lastsortedShort, shortText.GetSize());
+	
 	algoTest.QuickSortTest(longText);
 	algoTest.PrintTime();
-	std::cout << std::endl;
+	algoTest.ExpectedOutComeNLogN(lastShort, ssize, lsize);
 	
-	algoTest.PrintFirstLast();
+	std::cout << std::endl<<std::endl;
+	
+	algoTest.PrintFirstLast(lastsortedShort,shortText.GetSize());
+	std::cout << std::endl <<std::endl;
+	algoTest.PrintFirstLast(algoTest.GetStringArray(),longText.GetSize());
 };
 	
 void SortTwoAlgorithms(TextParser& shortText, TextParser& longText){
 	//first random nlogn
 	int random = std::rand() % 2;
 	
-	std::cout << std::setw(WIDTH * 2) <<std::right << "Unsorted";
+	std::cout << std::setw(WIDTH * 3) <<std::right << "Unsorted";
 	std::cout << std::setw(WIDTH + 1) <<  "Sorted\n";
 	
 	AlgoTest algoTest;
+	int ssize = shortText.GetSize();
+	int lsize = longText.GetSize();
+	double lastShort = 0;
 	
+	//this is shoehorned in
+	std::string* lastsortedShort = new std::string[shortText.GetSize()];
 	switch(random){
 		case 0:
 		//merge sort
-		std::cout << "Merge Sort" << std::endl;
 			std::cout << "Merge Sort\n";
 			algoTest.MergeSortTest(shortText);
 			algoTest.PrintTime();
+			lastShort = algoTest.GetLastSortedDurationPair().x;
+			SortingAlgorithms::CopyString(shortText.GetToken(), lastsortedShort, shortText.GetSize());
 			algoTest.MergeSortTest(longText);
 			algoTest.PrintTime();
 		
@@ -164,41 +203,52 @@ void SortTwoAlgorithms(TextParser& shortText, TextParser& longText){
 			std::cout << "QuickSort\n";
 			algoTest.QuickSortTest(shortText);
 			algoTest.PrintTime();
+			lastShort = algoTest.GetLastSortedDurationPair().x;
+			SortingAlgorithms::CopyString(shortText.GetToken(), lastsortedShort, shortText.GetSize());
 			algoTest.QuickSortTest(longText);
 			algoTest.PrintTime();
 		
 		break;
 	}
+	
+	algoTest.ExpectedOutComeNLogN(lastShort, ssize, lsize);
 	//second random n^2 
 	random = std::rand() % 3;
 	switch(random){
 		case 0:
-		//Selection Sort
-			std::cout << "Selection Sort\n";
-			algoTest.SelectionSortTest(shortText);
-			algoTest.PrintTime();
-			algoTest.SelectionSortTest(longText);
-			algoTest.PrintTime();
-		break;
-		case 1:
-		//Insertion Sort
-			std::cout << "Insertion Sort\n";
-			algoTest.InsertionSortTest(shortText);
-			algoTest.PrintTime();
-			algoTest.InsertionSortTest(longText);
-			algoTest.PrintTime();	
-		break;
-		case 2:
 		//Bubble Sort
 			std::cout << "Bubble Sort\n";
 			algoTest.BubbleSortTest(shortText);
 			algoTest.PrintTime();
+			lastShort = algoTest.GetLastSortedDurationPair().x;
+			SortingAlgorithms::CopyString(shortText.GetToken(), lastsortedShort, shortText.GetSize());
 			algoTest.BubbleSortTest(longText);
 			algoTest.PrintTime();
-		
+		break;
+		case 1:		
+		//Selection Sort
+			std::cout << "Selection Sort\n";
+			algoTest.SelectionSortTest(shortText);
+			algoTest.PrintTime();
+			lastShort = algoTest.GetLastSortedDurationPair().x;
+			SortingAlgorithms::CopyString(shortText.GetToken(), lastsortedShort, shortText.GetSize());
+			algoTest.SelectionSortTest(longText);
+			algoTest.PrintTime();
+		break;
+		case 2:
+		//Insertion Sort
+			std::cout << "Insertion Sort\n";
+			algoTest.InsertionSortTest(shortText);
+			algoTest.PrintTime();
+			lastShort = algoTest.GetLastSortedDurationPair().x;
+			SortingAlgorithms::CopyString(shortText.GetToken(), lastsortedShort, shortText.GetSize());
+			algoTest.InsertionSortTest(longText);
+			algoTest.PrintTime();
 		break;
 	}
-	
-	
-	algoTest.PrintFirstLast();
+	algoTest.ExpectedOutComeN2(lastShort, ssize, lsize);
+	std::cout << std::endl;
+	algoTest.PrintFirstLast(lastsortedShort,shortText.GetSize());
+	std::cout << std::endl;
+	algoTest.PrintFirstLast(algoTest.GetStringArray(),longText.GetSize());
 }

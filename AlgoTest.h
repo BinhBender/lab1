@@ -34,8 +34,9 @@ public:
 	std::string* GetStringArray();
 	doublePair GetLastSortedDurationPair(); //Get a pair of timings for the unsorted and sorted.
 	
-	void PrintFirstLast();
+	void PrintFirstLast(std::string* strs, int size);
 	void PrintTime();
 	void PrintFinalResults();
-	
+	void ExpectedOutComeN2(double baseTime, double shortSize, double longSize);
+	void ExpectedOutComeNLogN(double baseTime, double shortSize, double longSize);
 };

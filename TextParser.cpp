@@ -1,7 +1,8 @@
 #include "TextParser.h"
 #include <unordered_map>
 #include <iostream>
-
+#include <algorithm>
+#include <cctype>
 int TextParser::GetSize(){
 	return wordCount;
 }
@@ -24,17 +25,38 @@ TextParser::~TextParser(){
 	delete[] tokens;
 }
 
-void removePunctuation(std::string& input){
-	//clean the word first (no puncutation marks)
-	for(long unsigned int i = 0; i < input.size(); i++){
-		//if the char is not between ascii values of the letters
-		//then it should be removed
+//clean the word first (no puncutation marks)
+std::string removePunctuation(std::string input){
+	int size = input.length();
+	std::string output;
+	for(int i = 0; i < size; i++){
 		char c = input[i];
-		if(c == 39){}
-		else if((c > 32 && c < 65)|| (c > 90 && c < 97) || c > 122){
-			input.erase(i);
+		//checks if char is an alphabetical letter or not
+		//checks for exceptions first
+		if(isalpha(c)){
+			output += c;
+		}else if(c == 39 || c == '-'){
+			//checks if the numbers are below or
+			//above the domain of the string
+			int upper = (i + 1 > size-1) ? i : i+1;
+			int lower = (i - 1 < 0) ? i : i - 1;
+			//if at least one is true, then were can be sure that its a word
+			//doesn't, chess', half-life
+			//checks c within the bound and this should return true
+			//when both sides are F
+			if(isalpha(input[upper]) || isalpha(input[lower])){
+				output += c;
+			}
 		}
+		
 	}
+	return output;
+}
+std::string lowerCaseCheck(std::string a){
+	
+	std::transform(a.begin(),a.end(),a.begin(), ::tolower);
+	
+	return a;
 }
 bool TextParser::Parse(int limit){
 	//check if the file is open or not before use
@@ -47,24 +69,22 @@ bool TextParser::Parse(int limit){
 	prohibited_words["a"] = 1;
 	prohibited_words["the"] = 1;
 	prohibited_words["be"] = 1;
+	prohibited_words[" "] = 1;
+	prohibited_words["\n"] = 1;
 	
 	//loops through the file for each word until it 
 	while(ifile && wordCount < limit){
 		std::string word;
-		ifile >> word;
-		removePunctuation(word);
-		//check if the word is one of the prohibited
-		//but just in case there is more than one in a row
-		//loop it
-		while(prohibited_words[word] == 1) {
-		//since a map inserts an element anytime it is accessed with
-		//a different key, we need to remove it in order to save some 
-		//memory since this is looking at a lot of words
-			prohibited_words.erase(word);
+		std::string lcWord;
+		do {
+
+
 			ifile >> word;
-		}
-		
-		
+			word = removePunctuation(word);
+			lcWord = lowerCaseCheck(word); 
+			
+		}while(prohibited_words[lcWord] == 1);
+		prohibited_words.erase(lcWord);
 		
 			
 		//increases the size per loop

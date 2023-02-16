@@ -1,5 +1,5 @@
 #include "AlgoTest.h"
-
+#include <math.h>
 AlgoTest::AlgoTest(){
 	durationUnsort = 0;
 	durationSort = 0;
@@ -20,27 +20,42 @@ void AlgoTest::PrintTime(){
 	const int width = 20;
 	std::cout << std::fixed << std::setprecision(2);
 	std::cout << std::setw(width * 3 + 1) << std::setfill('=') << '\n' << std::setfill(' ');
-	std::cout << std::setw(width) << std::left << "Time: " << std::right;
+	std::cout << std::setw(width) << std::left << "Time (ms): " << std::right;
 	std::cout << std::setw(width) << durationUnsort << std::setw(width) << durationSort << std::endl;
 
 }       
-void AlgoTest::PrintFirstLast(){
+double percentError(double experimentValue, double testedValue){
+	return (experimentValue - testedValue) / testedValue;
+	}
+void AlgoTest::ExpectedOutComeN2(double baseTime, double shortSize, double longSize){
+	double c = baseTime / (shortSize * shortSize);
+	c*= longSize * longSize;
+	std::cout << "For an algorithm of O(n^2) given the base time of " << baseTime << "ms \na scaled up time for a size of n * 5 \nwould be expected to be around " << c;
+	std::cout << "\nAnd the % error is " << percentError(c,longSize);
+}
+void AlgoTest::ExpectedOutComeNLogN(double baseTime, double shortSize, double longSize){
+	double c = baseTime / (shortSize * log(shortSize));
+	c*= longSize * log(longSize);
+	std::cout << "For an O(nlogn) given the base time of " << baseTime << "ms \na scaled up time for a size of n * 5 \nwould be expected to be around " << c;
+	std::cout << "\nAnd the % error is " << percentError(c,longSize) << "%\n";
+}
+void AlgoTest::PrintFirstLast(std::string* strs, int size){
 	//make two loops to print first 50 of the array
 	//and last 50
 	
 	int endline = 0; //counter to add an std::endl every few words
 	std::cout << "====First 50 Words====\n";
 	for(int i = 0; i < 50; i++){
-		std::cout << placeHolder[i] << ", ";			   //new line every few words
-		
-		if(endline % 10 == 0) std::cout<<std::endl;
+		std::cout << strs[i] << ", ";			   //new line every few words
+		endline++;
+		if(endline % 15 == 0) std::cout<<std::endl;
 	}
 	
 	std::cout << "\n====Last 50 Words====\n";
-	for(int i = lastSize - 51; i < lastSize; i++){
-		std::cout << placeHolder[i] << ", ";
-		
-		if(endline % 10 == 0) std::cout<<std::endl; //new line every few words
+	for(int i = size - 51; i < size; i++){
+		std::cout << strs[i] << ", ";
+		endline++;		
+		if(endline % 15 == 0) std::cout<<std::endl; //new line every few words
 	}
 }
 doublePair AlgoTest::GetLastSortedDurationPair(){

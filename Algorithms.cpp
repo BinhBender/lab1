@@ -54,65 +54,72 @@ int AlphabetValue(std::string str1, std::string str2){
 	
 }
 
-int min_position(std::string array[],int from,int to){
-	
-	int min = 0;
-	//goes through array to find the minimum
-	for(int i = from+1; i < to; i++){
-		//if array at index i < min, set min to index i
-		if(AlphabetValue(array[i], array[min])){
-			min = i;
-		}
-	
-	}
-	return min;
-}
 
 //o(n^2)
-void SortingAlgorithms::BubbleSort(std::string array[], int size){
+//Adapted from zybook
+void SortingAlgorithms::BubbleSort(std::string strs[], int size){
 	
 	//nested loop since bubble sort is basically 
 	//"for every i, check j"
+	
 	for(unsigned int i = 0; i < size; i++){
-		//incase the array is already sorted
-		//we assume that it is true
-		//and when a swap happens, 
-		//it means that its not sorted and so
-		//it switches to negative and keeps looping
+		/*
+		incase the array is already sorted
+		we assume that it is true
+		and when a swap happens, 
+		it means that its not sorted and so
+		it switches to negative and keeps looping
+		*/
 		bool isSorted = true;
 		for(unsigned int j = 1; j < size - i; j++){
-			//if the previous string is 
-			if(AlphabetValue(array[j], array[j-1])) {
-				//swap(array[j], array[j-1]);
-				std::string ph = array[j];
-				array[j] = array[j-1];
-				array[j-1] = ph;
+			
+			//if the j string is "less" than the prev string, swap.
+			if(AlphabetValue(strs[j], strs[j-1]) < 0) {
+				
+				swap(strs[j], strs[j-1]);
 				isSorted = false;
 			}
 			
-			if(isSorted) {break;}
 		}
+		
+		if(isSorted) {break;}
 	}
 }
 
 //o(n^2)
+//Adapted from zybook
 void SortingAlgorithms::InsertionSort(std::string array[] , int size){
 	for(int i = 1; i < size; i++){
 		std::string next = array[i];
 		int j = i;
-		while (j > 0 && array[j - 1] > next){
+		while (j > 0 && AlphabetValue(array[j - 1],next) > 0){
 			array[j] = array[j - 1];
 			j--;
 		}
 		array[j] = next;
 	}	
 }
+int min_position(std::string array[],int from,int to){
+	
+	int min = from;
+	//goes through array to find the minimum
+	for(int i = from+1; i <= to; i++){
+		//if element at index i < min, set min to index i
+		if(AlphabetValue(array[i], array[min]) < 0){
+			min = i;
+		}
+	
+	}
+	return min;
+}
 //o(n^2)
+//Adapted from zybook
 void SortingAlgorithms::SelectionSort(std::string array[], int size){
 	//the opposite of bubble
 	//left to right
 	for(int i = 0; i < size - 1; i++){
-		int min = min_position(array, i, size);
+		//finds the next lowest number in the array
+		int min = min_position(array, i, size - 1);
 		
 		swap(array[i], array[min]);
 		
@@ -138,7 +145,7 @@ void Merge(std::string strs[], int from, int mid, int to){
 		//if ipointer is less than jpointer, add value from 
 		//ipointer otherwise add from jpointer.
 		
-		if(AlphabetValue(strs[ipointer], strs[jpointer])){
+		if(AlphabetValue(strs[ipointer], strs[jpointer]) < 0){
 			tempStorage[j] = strs[ipointer];
 			ipointer++;
 		}
