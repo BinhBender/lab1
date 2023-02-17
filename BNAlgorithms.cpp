@@ -1,4 +1,4 @@
-#include "Algorithms.h"
+#include "BNAlgorithms.h"
 #include <iostream>
 #include <algorithm>
 
