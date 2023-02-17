@@ -3,10 +3,11 @@
 #include <iostream>
 #include <algorithm>
 #include <cctype>
+//Returns how many words the parser is storing
 int TextParser::GetSize(){
 	return wordCount;
 }
-
+//set the default values
 TextParser::TextParser(){
 	wordCount=0;
 	tokens = nullptr;
@@ -62,7 +63,10 @@ bool TextParser::Parse(int limit){
 	//check if the file is open or not before use
 	std::cout << "Starting Parse... ";
 	if(!ifile.is_open()) return false;
+	//creates a dynamic array based on the limit size
+	//this array will be shrunken if the wordcount < limit
 	tokens = new token[limit];
+	
 	//creates a map for prohibited words.
 	std::unordered_map<std::string, char> prohibited_words;
 	prohibited_words["an"] = 1;
@@ -74,26 +78,39 @@ bool TextParser::Parse(int limit){
 	
 	//loops through the file for each word until it 
 	while(ifile && wordCount < limit){
+		//place holder variables
 		std::string word;
 		std::string lcWord;
 		token a;
+		
+		/*
+		This loop checks the lowercase of the word to see if
+		its a prohibited word if it is then it keeps looping until its not.
+		*/
 		do {
 
-
+				
 			ifile >> word;
-			word = removePunctuation(word);
-			lcWord = lowerCaseCheck(word); 
+			word = removePunctuation(word); //cleans the word
+			lcWord = lowerCaseCheck(word);  //turn into lowercase
 			
 		}while(prohibited_words[lcWord] == 1);
+		//since map creates a hash for every index its given, we have to
+		//remove it to conserve memory
 		prohibited_words.erase(lcWord);
 		
-		tokens[wordCount].NormWord = word;
-		tokens[wordCount].lowerCaseWord = lcWord;
+		//wordCount = size but is not =/= to index position 
 		
 		wordCount++;
+		tokens[wordCount - 1].NormWord = word;
+		tokens[wordCount - 1].lowerCaseWord = lcWord;
+		
 	}
 	
-	if(wordCount + 1 < limit){
+	//checks if the txt file is finished parsing before it reached the limit
+	//this would mean that the inital array was too big so we make a new one
+	//thats in accordance to how much was filled up and copy them over.
+	if(wordCount< limit){
 		token* dummy = tokens;
 		tokens = new token[wordCount];
 		for(int i = 0; i < wordCount; i++){
@@ -106,7 +123,7 @@ bool TextParser::Parse(int limit){
 	
 }
 
-
+//returns the array
 token* TextParser::GetToken(){
 	return tokens;
 }
