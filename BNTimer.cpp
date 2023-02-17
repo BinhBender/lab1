@@ -1,4 +1,4 @@
-#include "Timer.h"
+#include "BNTimer.h"
 
 //sets the to n so that it could be used as the starting number
 void Timer::StartTime(){
