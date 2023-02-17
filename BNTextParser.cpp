@@ -1,4 +1,4 @@
-#include "TextParser.h"
+#include "BNTextParser.h"
 #include <unordered_map>
 #include <iostream>
 #include <algorithm>
