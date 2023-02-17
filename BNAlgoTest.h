@@ -1,5 +1,5 @@
-#include "Algorithms.h"
-#include "Timer.h"
+#include "BNAlgorithms.h"
+#include "BNTimer.h"
 #include <iostream>
 #include <string>
 #include <iomanip>
