@@ -1,4 +1,4 @@
-#include "AlgoTest.h"
+#include "BNAlgoTest.h"
 #include <math.h>
 AlgoTest::AlgoTest(){
 	durationUnsort = 0;
