@@ -6,10 +6,10 @@
 #include <iomanip>
 #include <chrono>
 #include <random>
-#include "Timer.h"
-#include "Algorithms.h"
-#include "TextParser.h"
-#include "AlgoTest.h"
+#include "BNTimer.h"
+#include "BNAlgorithms.h"
+#include "BNTextParser.h"
+#include "BNAlgoTest.h"
 
 #define PARSE_SIZE 5000
 #define WIDTH 20
