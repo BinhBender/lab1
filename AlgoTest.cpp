@@ -28,12 +28,19 @@ double percentError(double experimentValue, double testedValue){
 	return (experimentValue - testedValue) / testedValue;
 	}
 void AlgoTest::ExpectedOutComeN2(double baseTime, double shortSize, double longSize){
+	//Need to find how much an algorithm
+	//scales by given an inital time
+	//so this finds that ratio
 	double c = baseTime / (shortSize * shortSize);
+	
+	//multiply the ratio by the number of elements
+	//in accordance to the O(n) type
 	c*= longSize * longSize;
 	std::cout << "For an algorithm of O(n^2) given the base time of " << baseTime << "ms \na scaled up time for a size of n * 5 \nwould be expected to be around " << c;
 	std::cout << "\nAnd the % error is " << percentError(c,longSize);
 }
 void AlgoTest::ExpectedOutComeNLogN(double baseTime, double shortSize, double longSize){
+	//same thing as ExpectedOutComeN2()
 	double c = baseTime / (shortSize * log(shortSize));
 	c*= longSize * log(longSize);
 	std::cout << "For an O(nlogn) given the base time of " << baseTime << "ms \na scaled up time for a size of n * 5 \nwould be expected to be around " << c;
