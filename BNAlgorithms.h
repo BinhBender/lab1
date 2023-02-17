@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
-#include "TextParser.h"
-#include "Timer.h"
+#include "BNTextParser.h"
+#include "BNTimer.h"
  class SortingAlgorithms{
 public:
 	static void BubbleSort(token[], int);
