@@ -10,41 +10,11 @@ void swap(token& a, token& b){
 
 //helper function to find the lower alphabetical word
 //returns true if a is "less than" b
+//not used
 int AlphabetValue(std::string str1, std::string str2){
 	
 	std::string a = str1;
 	std::string b = str2;
-	
-	/*
-	std::cout <<"Finding val..\n";
-	//if i preemtively set it to a.size() i won't 
-	//have to do an else statement saves a tiny bit of time
-	long unsigned int sizeLimit = a.size();
-	if(sizeLimit > b.size()){
-		sizeLimit = b.size();
-	}
-	
-	 I don't know why this does not work the way I want them to.
-	 * Going to use the standard "<" operator
-	for(long unsigned int i = 0; i< sizeLimit; i++){
-		//capitalize all of them so 97 - 122 (a-z) 65-90(A-Z)
-		int letterA = int(a[i]);
-		int letterB = int(b[i]);
-		//checks if the letter is a lower case or not and then subtracts 32
-		if(letterA > 96 && letterA < 123) letterA -= 32;
-		if(letterB > 96 && letterB < 123) letterB -= 32;
-		
-		//checks their ascii values to compare
-		if(letterA > letterB){
-			return false;
-		}else if(letterB > letterA){
-			return true;
-		}
-		//what happens if they are equal?
-		//they keep going through the loop
-		//dangerous if the word has "!" "?" or any punctuation marks.
-		//Parser should remove these.
-	}*/
 	//to turn the string into a lower case
 	std::transform(a.begin(),a.end(),a.begin(), [](unsigned char c) {return std::tolower(c); });
 	std::transform(b.begin(),b.end(),b.begin(), [](unsigned char c) {return std::tolower(c); });
