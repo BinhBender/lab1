@@ -12,7 +12,7 @@
 #include "AlgoTest.h"
 
 #define PARSE_SIZE 5000
-#define WIDTH 10
+#define WIDTH 20
 
 void SortAllAlgorithms(TextParser&, TextParser&);
 void SortTwoAlgorithms(TextParser&, TextParser&);
@@ -105,7 +105,7 @@ void SortAllAlgorithms(TextParser& shortText, TextParser& longText){
 	//this is shoehorned in
 	token* lastsortedShort = new token[shortText.GetSize()];
 	
-	std::cout << std::setw(WIDTH * 3) <<std::right << "Unsorted";
+	std::cout << std::setw(WIDTH * 2) <<std::right << "Unsorted";
 	std::cout << std::setw(WIDTH + 1) <<  "Sorted\n";
 	
 	std::cout << "Bubble Sort\n";
@@ -176,7 +176,7 @@ void SortTwoAlgorithms(TextParser& shortText, TextParser& longText){
 	//first random nlogn
 	int random = std::rand() % 2;
 	
-	std::cout << std::setw(WIDTH * 3) <<std::right << "Unsorted";
+	std::cout << std::setw(WIDTH * 2) <<std::right << "Unsorted";
 	std::cout << std::setw(WIDTH + 1) <<  "Sorted\n";
 	
 	AlgoTest algoTest;

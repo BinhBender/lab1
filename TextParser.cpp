@@ -13,9 +13,9 @@ TextParser::TextParser(){
 }
 	//constructor for file
 TextParser::TextParser(std::string fileName){
-	std::cout << "Finding File\n";
+	std::cout << "Finding File...";
 	ifile.open(fileName);
-	std::cout << "Found File\n";
+	std::cout << "\nFound File!\n";
 	wordCount = 0;
 	tokens = nullptr;
 }
@@ -60,7 +60,7 @@ std::string lowerCaseCheck(std::string a){
 }
 bool TextParser::Parse(int limit){
 	//check if the file is open or not before use
-	std::cout << "Starting Parse\n";
+	std::cout << "Starting Parse... ";
 	if(!ifile.is_open()) return false;
 	tokens = new token[limit];
 	//creates a map for prohibited words.
@@ -101,7 +101,7 @@ bool TextParser::Parse(int limit){
 		}
 		delete[] dummy; 
 	}
-	std::cout << "Size:" << wordCount;
+	std::cout << "Parse of: " << wordCount << " ended\n";
 	return true;
 	
 }
