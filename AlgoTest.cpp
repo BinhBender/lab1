@@ -13,7 +13,7 @@ AlgoTest::~AlgoTest(){
 	delete[] placeHolder;
 	delete[] listOfDurations;
 }
-std::string* AlgoTest::GetStringArray(){
+token* AlgoTest::GetStringArray(){
 	return placeHolder;
 }
 void AlgoTest::PrintTime(){
@@ -39,21 +39,21 @@ void AlgoTest::ExpectedOutComeNLogN(double baseTime, double shortSize, double lo
 	std::cout << "For an O(nlogn) given the base time of " << baseTime << "ms \na scaled up time for a size of n * 5 \nwould be expected to be around " << c;
 	std::cout << "\nAnd the % error is " << percentError(c,longSize) << "%\n";
 }
-void AlgoTest::PrintFirstLast(std::string* strs, int size){
+void AlgoTest::PrintFirstLast(token* strs, int size){
 	//make two loops to print first 50 of the array
 	//and last 50
 	
 	int endline = 0; //counter to add an std::endl every few words
 	std::cout << "====First 50 Words====\n";
 	for(int i = 0; i < 50; i++){
-		std::cout << strs[i] << ", ";			   //new line every few words
+		std::cout << strs[i].NormWord << ", ";			   //new line every few words
 		endline++;
 		if(endline % 15 == 0) std::cout<<std::endl;
 	}
 	
 	std::cout << "\n====Last 50 Words====\n";
 	for(int i = size - 51; i < size; i++){
-		std::cout << strs[i] << ", ";
+		std::cout << strs[i].NormWord << ", ";
 		endline++;		
 		if(endline % 15 == 0) std::cout<<std::endl; //new line every few words
 	}
@@ -67,10 +67,11 @@ doublePair AlgoTest::GetLastSortedDurationPair(){
 void AlgoTest::BubbleSortTest(TextParser& Txt){
 	Timer time;
 	lastSize = Txt.GetSize();
-
+	durationUnsort = 0;
+	durationSort = 0;
 	//Holds a copy of the string from the text parser so it could keep resorting.
 	delete[] placeHolder;
-	placeHolder = new std::string[lastSize];
+	placeHolder = new token[lastSize];
 	for(int i = 0; i < testNumber; i++){
 		//copy the original array every single loop
 		SortingAlgorithms::CopyString(Txt.GetToken(), placeHolder, lastSize);
@@ -95,10 +96,11 @@ void AlgoTest::BubbleSortTest(TextParser& Txt){
 void AlgoTest::SelectionSortTest(TextParser& Txt){
 	Timer time;
 	lastSize = Txt.GetSize();
-	
+		durationUnsort = 0;
+	durationSort = 0;
 	//Holds a copy of the string from the text parser so it could keep resorting.
 	delete[] placeHolder;
-	placeHolder = new std::string[lastSize];
+	placeHolder = new token[lastSize];
 	for(int i = 0; i < testNumber; i++){
 		//copy the original array every single loop
 		SortingAlgorithms::CopyString(Txt.GetToken(), placeHolder, lastSize);
@@ -122,10 +124,11 @@ void AlgoTest::SelectionSortTest(TextParser& Txt){
 void AlgoTest::InsertionSortTest(TextParser& Txt){
 	Timer time;
 	lastSize = Txt.GetSize();
-	
+		durationUnsort = 0;
+	durationSort = 0;
 	//Holds a copy of the string from the text parser so it could keep resorting.
 	delete[] placeHolder;
-	placeHolder = new std::string[lastSize];
+	placeHolder = new token[lastSize];
 	for(int i = 0; i < testNumber; i++){
 		//copy the original array every single loop
 		SortingAlgorithms::CopyString(Txt.GetToken(), placeHolder, lastSize);
@@ -149,10 +152,11 @@ void AlgoTest::InsertionSortTest(TextParser& Txt){
 void AlgoTest::QuickSortTest(TextParser& Txt){
 	Timer time;
 	lastSize = Txt.GetSize();
-	
+		durationUnsort = 0;
+	durationSort = 0;
 	//Holds a copy of the string from the text parser so it could keep resorting.
 	delete[] placeHolder;
-	placeHolder = new std::string[lastSize];
+	placeHolder = new token[lastSize];
 	for(int i = 0; i < testNumber; i++){
 		//copy the original array every single loop
 		SortingAlgorithms::CopyString(Txt.GetToken(), placeHolder, lastSize);
@@ -178,10 +182,11 @@ void AlgoTest::QuickSortTest(TextParser& Txt){
 void AlgoTest::MergeSortTest(TextParser& Txt){
 	Timer time;
 	lastSize = Txt.GetSize();
-	
+	durationUnsort = 0;
+	durationSort = 0;
 	//Holds a copy of the string from the text parser so it could keep resorting.
 	delete[] placeHolder;
-	placeHolder = new std::string[lastSize];
+	placeHolder = new token[lastSize];
 	for(int i = 0; i < testNumber; i++){
 		//copy the original array every single loop
 		SortingAlgorithms::CopyString(Txt.GetToken(), placeHolder, lastSize);

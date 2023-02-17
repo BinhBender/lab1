@@ -62,7 +62,7 @@ bool TextParser::Parse(int limit){
 	//check if the file is open or not before use
 	std::cout << "Starting Parse\n";
 	if(!ifile.is_open()) return false;
-	
+	tokens = new token[limit];
 	//creates a map for prohibited words.
 	std::unordered_map<std::string, char> prohibited_words;
 	prohibited_words["an"] = 1;
@@ -76,6 +76,7 @@ bool TextParser::Parse(int limit){
 	while(ifile && wordCount < limit){
 		std::string word;
 		std::string lcWord;
+		token a;
 		do {
 
 
@@ -86,32 +87,26 @@ bool TextParser::Parse(int limit){
 		}while(prohibited_words[lcWord] == 1);
 		prohibited_words.erase(lcWord);
 		
-			
-		//increases the size per loop
+		tokens[wordCount].NormWord = word;
+		tokens[wordCount].lowerCaseWord = lcWord;
+		
 		wordCount++;
-		//make a placeholder pointer for the string array before deleting.
-		std::string* dummy = tokens;
-		
-		//uses the size to make a dynamically allocated array
-		tokens = new std::string[wordCount];
-			
-		//copy all of the words from the previous array into the new one.
-		for(int i = 0; i < wordCount - 1; i++){
-			tokens[i] = dummy[i];
-		}
-		//delete old array
-		delete[] dummy;
-		dummy = nullptr;
-		//insert new word into array.
-		tokens[wordCount - 1] = word;
-		
-		
 	}
 	
+	if(wordCount + 1 < limit){
+		token* dummy = tokens;
+		tokens = new token[wordCount];
+		for(int i = 0; i < wordCount; i++){
+			tokens[i] = dummy[i];
+		}
+		delete[] dummy; 
+	}
+	std::cout << "Size:" << wordCount;
 	return true;
+	
 }
 
 
-std::string* TextParser::GetToken(){
+token* TextParser::GetToken(){
 	return tokens;
 }

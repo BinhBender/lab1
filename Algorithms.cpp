@@ -1,10 +1,11 @@
 #include "Algorithms.h"
 #include <iostream>
 #include <algorithm>
-void swap(std::string* a, std::string* b){
-	std::string temp = *a;
-	*a = *b;
-	*b = temp;
+
+void swap(token& a, token& b){
+	token temp = a;
+	a = b;
+	b = temp;
 }
 
 //helper function to find the lower alphabetical word
@@ -57,12 +58,12 @@ int AlphabetValue(std::string str1, std::string str2){
 
 //o(n^2)
 //Adapted from zybook
-void SortingAlgorithms::BubbleSort(std::string strs[], int size){
+void SortingAlgorithms::BubbleSort(token strs[], int size){
 	
 	//nested loop since bubble sort is basically 
 	//"for every i, check j"
 	
-	for(unsigned int i = 0; i < size; i++){
+	for(int i = 0; i < size; i++){
 		/*
 		incase the array is already sorted
 		we assume that it is true
@@ -71,10 +72,10 @@ void SortingAlgorithms::BubbleSort(std::string strs[], int size){
 		it switches to negative and keeps looping
 		*/
 		bool isSorted = true;
-		for(unsigned int j = 1; j < size - i; j++){
+		for(int j = 1; j < size - i; j++){
 			
 			//if the j string is "less" than the prev string, swap.
-			if(AlphabetValue(strs[j], strs[j-1]) < 0) {
+			if(strs[j].lowerCaseWord < strs[j-1].lowerCaseWord) {
 				
 				swap(strs[j], strs[j-1]);
 				isSorted = false;
@@ -88,24 +89,24 @@ void SortingAlgorithms::BubbleSort(std::string strs[], int size){
 
 //o(n^2)
 //Adapted from zybook
-void SortingAlgorithms::InsertionSort(std::string array[] , int size){
+void SortingAlgorithms::InsertionSort(token array[] , int size){
 	for(int i = 1; i < size; i++){
-		std::string next = array[i];
+		token next = array[i];
 		int j = i;
-		while (j > 0 && AlphabetValue(array[j - 1],next) > 0){
+		while (j > 0 && array[j - 1].lowerCaseWord > next.lowerCaseWord){
 			array[j] = array[j - 1];
 			j--;
 		}
 		array[j] = next;
 	}	
 }
-int min_position(std::string array[],int from,int to){
+int min_position(token array[],int from,int to){
 	
 	int min = from;
 	//goes through array to find the minimum
 	for(int i = from+1; i <= to; i++){
 		//if element at index i < min, set min to index i
-		if(AlphabetValue(array[i], array[min]) < 0){
+		if(array[i].lowerCaseWord < array[min].lowerCaseWord){
 			min = i;
 		}
 	
@@ -114,7 +115,7 @@ int min_position(std::string array[],int from,int to){
 }
 //o(n^2)
 //Adapted from zybook
-void SortingAlgorithms::SelectionSort(std::string array[], int size){
+void SortingAlgorithms::SelectionSort(token array[], int size){
 	//the opposite of bubble
 	//left to right
 	for(int i = 0; i < size - 1; i++){
@@ -127,10 +128,10 @@ void SortingAlgorithms::SelectionSort(std::string array[], int size){
 }
 
 //Adapted from zybook
-void Merge(std::string strs[], int from, int mid, int to){
+void Merge(token strs[], int from, int mid, int to){
 	//create a new array in order to make it easier.
 	int size = to - from + 1;
-	std::string* tempStorage = new std::string[size];
+	token* tempStorage = new token[size];
 	//std::cout << "Merge\n";
 	//loop through the new array with two "pointers" 
 	//the pointers will start at from, and mid+1
@@ -145,7 +146,7 @@ void Merge(std::string strs[], int from, int mid, int to){
 		//if ipointer is less than jpointer, add value from 
 		//ipointer otherwise add from jpointer.
 		
-		if(AlphabetValue(strs[ipointer], strs[jpointer]) < 0){
+		if(strs[ipointer].lowerCaseWord < strs[jpointer].lowerCaseWord){
 			tempStorage[j] = strs[ipointer];
 			ipointer++;
 		}
@@ -176,7 +177,7 @@ void Merge(std::string strs[], int from, int mid, int to){
 	delete[] tempStorage;
 }
 //o(nlogn)
-void SortingAlgorithms::MergeSort(std::string strings[], int from, int to){
+void SortingAlgorithms::MergeSort(token strings[], int from, int to){
 	if(from >= to) return;
 	//std::cout <<"split ";
 	int mid = (from + to) / 2;
@@ -185,10 +186,10 @@ void SortingAlgorithms::MergeSort(std::string strings[], int from, int to){
 	Merge(strings, from, mid, to);
 }
 //Adapted from zybook
-int _partition(std::string list[], int from,int to){
+int _partition(token list[], int from,int to){
 	//std::cout << "start partition ";
 	//set to left pivot
-	std::string pivot = list[from];
+	token pivot = list[from];
 	
 	//two iterators that goes "towards the middle" or until 
 	int i = from - 1;
@@ -198,12 +199,12 @@ int _partition(std::string list[], int from,int to){
 	while(i < j){
 		i++; 
 		//while(list[i] < pivot) {i++;}
-		while(AlphabetValue(list[i], pivot) < 0) {i++;}
+		while(list[i].lowerCaseWord < pivot.lowerCaseWord) {i++;}
 		j--; 
 		//while(list[j] > pivot) {j--;}
-		while(AlphabetValue(list[j], pivot) > 0) {j--;}
+		while(list[j].lowerCaseWord  > pivot.lowerCaseWord) {j--;}
 		if(i < j) {	
-			swap(&list[i], &list[j]);
+			swap(list[i], list[j]);
 
 		}
 		//std::cout << i << " " << j << std::endl;
@@ -214,7 +215,7 @@ int _partition(std::string list[], int from,int to){
 }
 //o(nlogn)
 //Adapted from zybook
-void SortingAlgorithms::QuickSort(std::string strlist[], int from, int to){
+void SortingAlgorithms::QuickSort(token strlist[], int from, int to){
 	if(from >= to) return;
 		//std::cout << from << " " << to << std::endl;
 		int p = _partition(strlist, from, to);
@@ -225,7 +226,7 @@ void SortingAlgorithms::QuickSort(std::string strlist[], int from, int to){
 }
 
 
-void SortingAlgorithms::CopyString(std::string from[], std::string to[] , int sizes){
+void SortingAlgorithms::CopyString(token from[], token to[] , int sizes){
 	for(int i = 0; i < sizes; i++){
 		to[i] = from[i];
 	}

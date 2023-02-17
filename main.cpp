@@ -79,7 +79,7 @@ int main(){
 
 			}
 		}
-		std::cout << "Would you like to run the program again?\n";
+		std::cout << "\n\nWould you like to run the program again?\n";
 		std::cout << "Y/N: ";
 		std::cin >> choice;
 	}
@@ -103,7 +103,7 @@ void SortAllAlgorithms(TextParser& shortText, TextParser& longText){
 	int lsize = longText.GetSize();
 	double lastShort = 0;
 	//this is shoehorned in
-	std::string* lastsortedShort = new std::string[shortText.GetSize()];
+	token* lastsortedShort = new token[shortText.GetSize()];
 	
 	std::cout << std::setw(WIDTH * 3) <<std::right << "Unsorted";
 	std::cout << std::setw(WIDTH + 1) <<  "Sorted\n";
@@ -159,7 +159,7 @@ void SortAllAlgorithms(TextParser& shortText, TextParser& longText){
 	algoTest.QuickSortTest(shortText);
 	algoTest.PrintTime();
 	lastShort = algoTest.GetLastSortedDurationPair().x;
-	SortingAlgorithms::CopyString(shortText.GetToken(), lastsortedShort, shortText.GetSize());
+	SortingAlgorithms::CopyString(algoTest.GetStringArray(), lastsortedShort, shortText.GetSize());
 	
 	algoTest.QuickSortTest(longText);
 	algoTest.PrintTime();
@@ -185,7 +185,7 @@ void SortTwoAlgorithms(TextParser& shortText, TextParser& longText){
 	double lastShort = 0;
 	
 	//this is shoehorned in
-	std::string* lastsortedShort = new std::string[shortText.GetSize()];
+	token* lastsortedShort = new token[shortText.GetSize()];
 	switch(random){
 		case 0:
 		//merge sort
@@ -193,7 +193,7 @@ void SortTwoAlgorithms(TextParser& shortText, TextParser& longText){
 			algoTest.MergeSortTest(shortText);
 			algoTest.PrintTime();
 			lastShort = algoTest.GetLastSortedDurationPair().x;
-			SortingAlgorithms::CopyString(shortText.GetToken(), lastsortedShort, shortText.GetSize());
+			SortingAlgorithms::CopyString(algoTest.GetStringArray(), lastsortedShort, shortText.GetSize());
 			algoTest.MergeSortTest(longText);
 			algoTest.PrintTime();
 		
@@ -204,7 +204,7 @@ void SortTwoAlgorithms(TextParser& shortText, TextParser& longText){
 			algoTest.QuickSortTest(shortText);
 			algoTest.PrintTime();
 			lastShort = algoTest.GetLastSortedDurationPair().x;
-			SortingAlgorithms::CopyString(shortText.GetToken(), lastsortedShort, shortText.GetSize());
+			SortingAlgorithms::CopyString(algoTest.GetStringArray(), lastsortedShort, shortText.GetSize());
 			algoTest.QuickSortTest(longText);
 			algoTest.PrintTime();
 		
@@ -221,7 +221,7 @@ void SortTwoAlgorithms(TextParser& shortText, TextParser& longText){
 			algoTest.BubbleSortTest(shortText);
 			algoTest.PrintTime();
 			lastShort = algoTest.GetLastSortedDurationPair().x;
-			SortingAlgorithms::CopyString(shortText.GetToken(), lastsortedShort, shortText.GetSize());
+			SortingAlgorithms::CopyString(algoTest.GetStringArray(), lastsortedShort, shortText.GetSize());
 			algoTest.BubbleSortTest(longText);
 			algoTest.PrintTime();
 		break;
@@ -231,7 +231,7 @@ void SortTwoAlgorithms(TextParser& shortText, TextParser& longText){
 			algoTest.SelectionSortTest(shortText);
 			algoTest.PrintTime();
 			lastShort = algoTest.GetLastSortedDurationPair().x;
-			SortingAlgorithms::CopyString(shortText.GetToken(), lastsortedShort, shortText.GetSize());
+			SortingAlgorithms::CopyString(algoTest.GetStringArray(), lastsortedShort, shortText.GetSize());
 			algoTest.SelectionSortTest(longText);
 			algoTest.PrintTime();
 		break;
@@ -241,7 +241,7 @@ void SortTwoAlgorithms(TextParser& shortText, TextParser& longText){
 			algoTest.InsertionSortTest(shortText);
 			algoTest.PrintTime();
 			lastShort = algoTest.GetLastSortedDurationPair().x;
-			SortingAlgorithms::CopyString(shortText.GetToken(), lastsortedShort, shortText.GetSize());
+			SortingAlgorithms::CopyString(algoTest.GetStringArray(), lastsortedShort, shortText.GetSize());
 			algoTest.InsertionSortTest(longText);
 			algoTest.PrintTime();
 		break;

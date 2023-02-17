@@ -18,7 +18,7 @@ class AlgoTest {
 private:
 	const int testNumber = 5;
 	double durationUnsort, durationSort;
-	std::string* placeHolder;
+	token* placeHolder;
 	int lastSize;
 	doublePair* listOfDurations;
 public: 
@@ -31,10 +31,10 @@ public:
 	void QuickSortTest		(TextParser&);
 	void MergeSortTest		(TextParser&);
 	
-	std::string* GetStringArray();
+	token* GetStringArray();
 	doublePair GetLastSortedDurationPair(); //Get a pair of timings for the unsorted and sorted.
 	
-	void PrintFirstLast(std::string* strs, int size);
+	void PrintFirstLast(token*, int);
 	void PrintTime();
 	void PrintFinalResults();
 	void ExpectedOutComeN2(double baseTime, double shortSize, double longSize);

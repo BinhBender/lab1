@@ -2,13 +2,13 @@
 #include <string>
 #include "TextParser.h"
 #include "Timer.h"
-class SortingAlgorithms{
+ class SortingAlgorithms{
 public:
-	static void BubbleSort(std::string[], int);
-	static void InsertionSort(std::string[], int);
-	static void SelectionSort(std::string[], int);
-	static void MergeSort(std::string[], int, int);
-	static void QuickSort(std::string[], int, int);
+	static void BubbleSort(token[], int);
+	static void InsertionSort(token[], int);
+	static void SelectionSort(token[], int);
+	static void MergeSort(token[], int, int);
+	static void QuickSort(token[], int, int);
 	
-	static void CopyString(std::string[], std::string[], int);
+	static void CopyString(token[], token[], int);
 };
