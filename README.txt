@@ -1,3 +1,8 @@
+This is a lab for my DSA class and all it does is simulate the process of multiple sorting algorithms given any file of text.
+
+
+
+Usage:
 This program requires the stdlib 6 for c & c++
 use 
 sudo apt-get install stdlibc++6
